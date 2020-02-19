@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group = rootProject.properties['project.group']
+version = rootProject.properties['project.version']
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Everything used by Selenide and Selenium
+    compile         group: 'org.seleniumhq.selenium',       name: 'selenium-java',              version: rootProject.properties['selenium.version']
+    compile         group: 'com.codeborne',                 name: 'selenide',                   version: rootProject.properties['selenide.version']
+    compile         group: 'com.googlecode.json-simple',    name: 'json-simple',                version: rootProject.properties['gson.version']
+
+    // Everything used by junit 5
+    testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-api',          version: rootProject.properties['junit.version']
+    testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-engine',       version: rootProject.properties['junit.version']
+    testCompile     group: 'org.junit.vintage',             name: 'junit-vintage-engine',       version: rootProject.properties['junit.version']
+    testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-params',       version: rootProject.properties['junit.version']
+
+}
+
+test{
+    useJUnitPlatform()
+}
+
+task testAllFrontend(type: Test){
+    useJUnitPlatform {
+        includeTags 'frontend.test'
+        excludeTags 'api.test'
+    }
+}
+
+task testFrontendDomain(type: Test){
+    useJUnitPlatform {
+        includeTags specificFrontendDomain
+        excludeTags 'api.test'
+    }
+}
+
+task testAllAPI(type: Test){
+    useJUnitPlatform {
+        includeTags 'api.test'
+        excludeTags 'frontend.test'
+    }
+}
