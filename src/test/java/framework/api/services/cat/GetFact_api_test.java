@@ -2,8 +2,6 @@ package framework.api.services.cat;
 
 import framework.api.AbstractApiTestcase;
 import framework.utils.JsonUtils;
-import framework.utils.ResourceUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpStatus;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +12,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.net.URL;
 import java.util.stream.Stream;
 
 import static framework.api.services.cat.CatServiceManager.getOtherAnimalFact;
