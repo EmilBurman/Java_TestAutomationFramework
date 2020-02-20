@@ -24,10 +24,6 @@ dependencies {
     testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-engine',       version: rootProject.properties['junit.version']
     testCompile     group: 'org.junit.vintage',             name: 'junit-vintage-engine',       version: rootProject.properties['junit.version']
     testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-params',       version: rootProject.properties['junit.version']
-
-    // Everything used for API validation and testing
-    testCompile     group: 'io.rest-assured',               name: 'rest-assured',               version: rootProject.properties['restassured.version']
-
 }
 
 test{

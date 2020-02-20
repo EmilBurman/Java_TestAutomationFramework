@@ -3,8 +3,10 @@ package framework.utils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,13 +16,13 @@ public class JsonUtils {
 
     private static final Logger LOG = Logger.getLogger(JsonUtils.class.getName());
 
-    public static String getJSONResourceAsJSONString(URL resource) {
+    public static String getJSONResourceAsJSONString(String resource) {
         JSONObject jsonObject = getJSONResourceAsJSONObject(resource);
         String jsonString = convertJSONObjectToJSONString(jsonObject);
         return jsonString;
     }
 
-    public static JSONObject getJSONResourceAsJSONObject(URL resource) {
+    public static JSONObject getJSONResourceAsJSONObject(String resource) {
         JSONObject jsonObject = null;
         JSONParser parser = new JSONParser();
         try {
@@ -32,7 +34,7 @@ public class JsonUtils {
         return jsonObject;
     }
 
-    public static JSONArray getJSONResourceAsJSONArray(URL resource) {
+    public static JSONArray getJSONResourceAsJSONArray(String resource) {
         JSONArray jsonArray = new JSONArray();
         JSONParser parser = new JSONParser();
         try {
@@ -120,4 +122,5 @@ public class JsonUtils {
     public static String getSpecificValueFromJSON(JSONObject jsonObject, String key){
         return String.valueOf(jsonObject.get(key));
     }
+
 }

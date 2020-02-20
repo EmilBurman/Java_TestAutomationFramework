@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-02-20T08:54:08" hostname="HIQSTOL712" time="8.52">
+<testsuite name="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-02-20T10:36:24" hostname="HIQSTOL712" time="8.114">
   <properties/>
-  <testcase name="openWikipediaAndSearchForTerm(String)[1]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="6.336"/>
-  <testcase name="openWikipediaAndSearchForTerm(String)[2]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="1.161"/>
-  <testcase name="openWikipediaAndSearchForTerm(String)[3]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="1.016"/>
+  <testcase name="openWikipediaAndSearchForTerm(String)[1]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="6.203"/>
+  <testcase name="openWikipediaAndSearchForTerm(String)[2]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="0.903"/>
+  <testcase name="openWikipediaAndSearchForTerm(String)[3]" classname="framework.frontend.pages.wikipedia.SearchWikipedia_fe_test" time="1.004"/>
   <system-out><![CDATA[----------- STARTING NEW TEST SUITE -----------
-Thu Feb 20 09:54:08 CET 2020
+Thu Feb 20 11:36:24 CET 2020
 The selected browser is: chrome
 The selected headless state is: true
 The selected implicit timeout limit is: 4000
 ~~~ STARTING NEW FRONTEND TEST ~~~
-Thu Feb 20 09:54:08 CET 2020
+Thu Feb 20 11:36:24 CET 2020
 Opening wikipedia
 Searching for term: banana
-Thu Feb 20 09:54:15 CET 2020
+Thu Feb 20 11:36:31 CET 2020
 ~~~ ENDING FRONTEND TEST ~~~
 ~~~ STARTING NEW FRONTEND TEST ~~~
-Thu Feb 20 09:54:15 CET 2020
+Thu Feb 20 11:36:31 CET 2020
 Opening wikipedia
 Searching for term: pineapple
-Thu Feb 20 09:54:16 CET 2020
+Thu Feb 20 11:36:32 CET 2020
 ~~~ ENDING FRONTEND TEST ~~~
 ~~~ STARTING NEW FRONTEND TEST ~~~
-Thu Feb 20 09:54:16 CET 2020
+Thu Feb 20 11:36:32 CET 2020
 Opening wikipedia
 Searching for term: pancake
-Thu Feb 20 09:54:17 CET 2020
+Thu Feb 20 11:36:33 CET 2020
 ~~~ ENDING FRONTEND TEST ~~~
 ----------- ENDING TEST SUITE -----------
-Thu Feb 20 09:54:18 CET 2020
+Thu Feb 20 11:36:33 CET 2020
 ]]></system-out>
-  <system-err><![CDATA[Starting ChromeDriver 80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882}) on port 14894
+  <system-err><![CDATA[Starting ChromeDriver 80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882}) on port 25240
 Only local connections are allowed.
 Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
-feb 20, 2020 9:54:12 FM org.openqa.selenium.remote.ProtocolHandshake createSession
+feb 20, 2020 11:36:28 FM org.openqa.selenium.remote.ProtocolHandshake createSession
 INFO: Detected dialect: W3C
-[1582188854.535][SEVERE]: Timed out receiving message from renderer: 0.100
-[1582188854.779][SEVERE]: Timed out receiving message from renderer: 0.100
+[1582194990.585][SEVERE]: Timed out receiving message from renderer: 0.100
+[1582194992.906][SEVERE]: Timed out receiving message from renderer: 0.100
 ]]></system-err>
 </testsuite>

@@ -30,8 +30,28 @@ public class CatServiceManager {
         return getSpecificValueFromJSON(responseString,"text");
     }
 
-    public static boolean validateResponseCode(int expectedResponseCode){
-        HttpResponse response = HTTPadapter.sendGetCall(host, factBaseURI+"/random", null);
+    public static String getSpecificFactText(String factID){
+        String responseString = getSpecificFactObject(factID);
+        JsonUtils.prettyPrintJSON(responseString);
+        return getSpecificValueFromJSON(responseString,"text");
+    }
+
+    public static String getSpecificFactObject(String factID){
+        String responseString = "";
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/"+factID, null).getEntity();
+
+        try {
+            responseString = EntityUtils.toString(responseEntity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JsonUtils.prettyPrintJSON(responseString);
+        return responseString;
+    }
+
+    public static boolean validateResponseCode(int expectedResponseCode, String endpoint){
+        HttpResponse response = HTTPadapter.sendGetCall(host, factBaseURI+endpoint, null);
         return HTTPadapter.validateResponseCode(expectedResponseCode,response);
     }
 }
