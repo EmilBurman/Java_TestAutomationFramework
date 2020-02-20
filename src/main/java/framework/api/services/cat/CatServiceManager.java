@@ -8,6 +8,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
@@ -28,6 +30,20 @@ public class CatServiceManager {
 
         JsonUtils.prettyPrintJSON(responseString);
         return getSpecificValueFromJSON(responseString,"text");
+    }
+
+    public static String getOtherAnimalFact(String animal){
+        String responseString = "";
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random?animal_type="+animal, null).getEntity();
+
+        try {
+            responseString = EntityUtils.toString(responseEntity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JsonUtils.prettyPrintJSON(responseString);
+        return getSpecificValueFromJSON(responseString,"type");
     }
 
     public static String getSpecificFactText(String factID){

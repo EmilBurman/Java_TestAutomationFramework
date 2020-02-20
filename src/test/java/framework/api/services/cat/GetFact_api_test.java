@@ -17,6 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.net.URL;
 import java.util.stream.Stream;
 
+import static framework.api.services.cat.CatServiceManager.getOtherAnimalFact;
 import static framework.utils.JsonUtils.getJSONResourceAsJSONObject;
 import static framework.utils.Tags.API;
 import static framework.utils.Tags.API_CAT;
@@ -33,6 +34,12 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @Test
     public void validateRandomFactResponseTextIsNotEmpty(){
         Assertions.assertTrue(CatServiceManager.getRandomCatFact()!= null, "Unable to get a fact, please investigate.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"horse","dog"})
+    public void validateOtherAnimalFactresponseTextIsNotEmpty(String animal){
+        Assertions.assertTrue(getOtherAnimalFact(animal).contains(animal.toLowerCase()), "Unable to get a fact, please investigate.");
     }
 
     @ParameterizedTest
