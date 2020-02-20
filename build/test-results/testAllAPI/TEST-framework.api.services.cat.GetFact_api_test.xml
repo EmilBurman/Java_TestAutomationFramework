@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="framework.api.services.cat.GetFact_api_test" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-20T09:31:58" hostname="HIQSTOL712" time="1.777">
+  <properties/>
+  <testcase name="valdiate200Response()" classname="framework.api.services.cat.GetFact_api_test" time="1.217"/>
+  <testcase name="validateRandomFactResponseTextIsNotEmpty()" classname="framework.api.services.cat.GetFact_api_test" time="0.56"/>
+  <system-out><![CDATA[----------- STARTING NEW TEST SUITE -----------
+Thu Feb 20 10:31:58 CET 2020
+*** STARTING NEW API TEST ***
+Thu Feb 20 10:31:58 CET 2020
+Thu Feb 20 10:31:59 CET 2020
+*** ENDING API TEST ***
+*** STARTING NEW API TEST ***
+Thu Feb 20 10:31:59 CET 2020
+Thu Feb 20 10:32:00 CET 2020
+*** ENDING API TEST ***
+----------- ENDING TEST SUITE -----------
+Thu Feb 20 10:32:00 CET 2020
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+feb 20, 2020 10:32:00 FM framework.utils.JsonUtils prettyPrintJSON
+INFO: JSON data=
+{
+  "createdAt": "2018-01-04T01:10:54.673Z",
+  "deleted": false,
+  "__v": 0,
+  "used": false,
+  "source": "api",
+  "_id": "591f9894d369931519ce35df",
+  "text": "Cat litter was \"invented\" in 1947 when Edward Lowe asked his neighbor to try a dried, granulated clay used to sop up grease spills in factories. (In 1990, Mr. Lowe sold his business for $200 million.)",
+  "type": "cat",
+  "user": "5a9ac18c7478810ea6c06381",
+  "updatedAt": "2020-01-02T02:02:48.616Z",
+  "status": {
+    "verified": true,
+    "sentCount": 1
+  }
+}
+]]></system-err>
+</testsuite>

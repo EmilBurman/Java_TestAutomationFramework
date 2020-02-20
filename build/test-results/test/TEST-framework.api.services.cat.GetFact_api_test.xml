@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="framework.api.services.cat.GetFact_api_test" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-20T08:54:07" hostname="HIQSTOL712" time="1.674">
+  <properties/>
+  <testcase name="valdiate200Response()" classname="framework.api.services.cat.GetFact_api_test" time="1.138"/>
+  <testcase name="validateRandomFactResponseTextIsNotEmpty()" classname="framework.api.services.cat.GetFact_api_test" time="0.535"/>
+  <system-out><![CDATA[----------- STARTING NEW TEST SUITE -----------
+Thu Feb 20 09:54:07 CET 2020
+*** STARTING NEW API TEST ***
+Thu Feb 20 09:54:07 CET 2020
+Thu Feb 20 09:54:08 CET 2020
+*** ENDING API TEST ***
+*** STARTING NEW API TEST ***
+Thu Feb 20 09:54:08 CET 2020
+Thu Feb 20 09:54:08 CET 2020
+*** ENDING API TEST ***
+----------- ENDING TEST SUITE -----------
+Thu Feb 20 09:54:08 CET 2020
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+feb 20, 2020 9:54:08 FM framework.utils.JsonUtils prettyPrintJSON
+INFO: JSON data=
+{
+  "createdAt": "2018-03-10T21:20:08.577Z",
+  "deleted": false,
+  "__v": 0,
+  "used": false,
+  "source": "user",
+  "_id": "58e009790aac31001185ed14",
+  "text": "The technical term for \"hairball\" is \"bezoar.\"",
+  "type": "cat",
+  "user": "58e007480aac31001185ecef",
+  "updatedAt": "2020-01-02T02:02:48.616Z",
+  "status": {
+    "verified": true,
+    "sentCount": 1
+  }
+}
+]]></system-err>
+</testsuite>

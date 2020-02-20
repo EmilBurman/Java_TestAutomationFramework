@@ -111,4 +111,13 @@ public class JsonUtils {
         LOG.fine("jsonObject efter replaceAll = " + jsonObject.toJSONString());
         return jsonObject;
     }
+
+    public static String getSpecificValueFromJSON(String jsonString, String key){
+        JSONObject jsonObject = convertJSONStringToJSONObject(jsonString);
+        return String.valueOf(jsonObject.get(key));
+    }
+
+    public static String getSpecificValueFromJSON(JSONObject jsonObject, String key){
+        return String.valueOf(jsonObject.get(key));
+    }
 }
