@@ -1,12 +1,10 @@
 package framework.utils;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

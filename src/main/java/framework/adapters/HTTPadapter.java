@@ -11,7 +11,6 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class HTTPadapter {
 
