@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="framework.api.services.cat.GetFact_api_test" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-02-20T10:36:21" hostname="HIQSTOL712" time="3.644">
+<testsuite name="framework.api.services.cat.GetFact_api_test" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-02-20T13:33:51" hostname="HIQSTOL712" time="3.221">
   <properties/>
-  <testcase name="validateEntireObject(String, JSONObject)[1]" classname="framework.api.services.cat.GetFact_api_test" time="1.193"/>
-  <testcase name="valdiate200Response()" classname="framework.api.services.cat.GetFact_api_test" time="0.957"/>
-  <testcase name="validateSpecificFact(String, String)[1]" classname="framework.api.services.cat.GetFact_api_test" time="0.489"/>
-  <testcase name="validateSpecificFact(String, String)[2]" classname="framework.api.services.cat.GetFact_api_test" time="0.491"/>
-  <testcase name="validateRandomFactResponseTextIsNotEmpty()" classname="framework.api.services.cat.GetFact_api_test" time="0.498"/>
+  <testcase name="validateEntireObject(String, JSONObject)[1]" classname="framework.api.services.cat.GetFact_api_test" time="1.237"/>
+  <testcase name="valdiate200Response()" classname="framework.api.services.cat.GetFact_api_test" time="0.493"/>
+  <testcase name="validateSpecificFact(String, String)[1]" classname="framework.api.services.cat.GetFact_api_test" time="0.477"/>
+  <testcase name="validateSpecificFact(String, String)[2]" classname="framework.api.services.cat.GetFact_api_test" time="0.505"/>
+  <testcase name="validateRandomFactResponseTextIsNotEmpty()" classname="framework.api.services.cat.GetFact_api_test" time="0.497"/>
   <system-out><![CDATA[----------- STARTING NEW TEST SUITE -----------
-Thu Feb 20 11:36:21 CET 2020
+Thu Feb 20 14:33:51 CET 2020
 *** STARTING NEW API TEST ***
-Thu Feb 20 11:36:21 CET 2020
-Thu Feb 20 11:36:22 CET 2020
+Thu Feb 20 14:33:51 CET 2020
+Thu Feb 20 14:33:52 CET 2020
 *** ENDING API TEST ***
 *** STARTING NEW API TEST ***
-Thu Feb 20 11:36:22 CET 2020
-Thu Feb 20 11:36:23 CET 2020
+Thu Feb 20 14:33:52 CET 2020
+Thu Feb 20 14:33:53 CET 2020
 *** ENDING API TEST ***
 *** STARTING NEW API TEST ***
-Thu Feb 20 11:36:23 CET 2020
-Thu Feb 20 11:36:23 CET 2020
+Thu Feb 20 14:33:53 CET 2020
+Thu Feb 20 14:33:53 CET 2020
 *** ENDING API TEST ***
 *** STARTING NEW API TEST ***
-Thu Feb 20 11:36:23 CET 2020
-Thu Feb 20 11:36:24 CET 2020
+Thu Feb 20 14:33:53 CET 2020
+Thu Feb 20 14:33:53 CET 2020
 *** ENDING API TEST ***
 *** STARTING NEW API TEST ***
-Thu Feb 20 11:36:24 CET 2020
-Thu Feb 20 11:36:24 CET 2020
+Thu Feb 20 14:33:54 CET 2020
+Thu Feb 20 14:33:54 CET 2020
 *** ENDING API TEST ***
 ----------- ENDING TEST SUITE -----------
-Thu Feb 20 11:36:24 CET 2020
+Thu Feb 20 14:33:54 CET 2020
 ]]></system-out>
   <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-feb 20, 2020 11:36:22 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:52 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -52,7 +52,7 @@ INFO: JSON data=
     "sentCount": 1
   }
 }
-feb 20, 2020 11:36:23 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:53 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -70,7 +70,7 @@ INFO: JSON data=
     "sentCount": 1
   }
 }
-feb 20, 2020 11:36:23 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:53 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -88,7 +88,7 @@ INFO: JSON data=
     "sentCount": 1
   }
 }
-feb 20, 2020 11:36:24 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:53 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -106,7 +106,7 @@ INFO: JSON data=
     "sentCount": 1
   }
 }
-feb 20, 2020 11:36:24 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:53 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -124,7 +124,7 @@ INFO: JSON data=
     "sentCount": 1
   }
 }
-feb 20, 2020 11:36:24 FM framework.utils.JsonUtils prettyPrintJSON
+feb 20, 2020 2:33:54 EM framework.utils.JsonUtils prettyPrintJSON
 INFO: JSON data=
 {
   "createdAt": "2018-01-04T01:10:54.673Z",
@@ -132,8 +132,8 @@ INFO: JSON data=
   "__v": 0,
   "used": false,
   "source": "api",
-  "_id": "591f98703b90f7150a19c174",
-  "text": "The way you treat kittens in the early stages of it\u0027s life will render it\u0027s personality traits later in life.",
+  "_id": "591f98703b90f7150a19c13a",
+  "text": "When a cats rubs up against you, the cat is marking you with it\u0027s scent claiming ownership.",
   "type": "cat",
   "user": "5a9ac18c7478810ea6c06381",
   "updatedAt": "2020-01-02T02:02:48.616Z",
