@@ -61,7 +61,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
 
     private static Stream<Arguments> specificCatObjects() {
         return Stream.of(
-                Arguments.of("591f98883b90f7150a19c28c", getJSONResourceAsJSONObject("catfact.json"))
+                Arguments.of("591f98883b90f7150a19c28c", getJSONResourceAsJSONObject("framework/api.services.cat/catfact.json"))
         );
     }
 }

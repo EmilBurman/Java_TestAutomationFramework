@@ -11,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
 dependencies {
     // Everything used by Selenide and Selenium
     compile         group: 'org.seleniumhq.selenium',       name: 'selenium-java',              version: rootProject.properties['selenium.version']
@@ -19,11 +24,15 @@ dependencies {
     //Everything used for XML and JSON handling
     compile         group: 'com.googlecode.json-simple',    name: 'json-simple',                version: rootProject.properties['gson.version']
 
+    // Used to get cuecumber to work with Java
+    testImplementation         group: 'io.cucumber',        name: 'cucumber-java',              version: rootProject.properties['cucumber.version']
+
     // Everything used by junit 5
     testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-api',          version: rootProject.properties['junit.version']
     testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-engine',       version: rootProject.properties['junit.version']
     testCompile     group: 'org.junit.vintage',             name: 'junit-vintage-engine',       version: rootProject.properties['junit.version']
     testCompile     group: 'org.junit.jupiter',             name: 'junit-jupiter-params',       version: rootProject.properties['junit.version']
+    testCompile     group: 'io.cucumber',                   name: 'cucumber-junit',             version: rootProject.properties['junitcucumber.version']
 }
 
 test{
@@ -34,6 +43,16 @@ task testAllFrontend(type: Test){
     useJUnitPlatform {
         includeTags 'frontend.test'
         excludeTags 'api.test'
+    }
+}
+
+task testAllBehaviordriven(type: Test){
+    doLast{
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', '@BDD']
+        }
     }
 }
 
