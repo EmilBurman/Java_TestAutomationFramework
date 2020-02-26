@@ -45,28 +45,35 @@ task testAllFrontend(type: Test){
         excludeTags 'api.test'
     }
 }
-
-task testWithTag(type: Test){
-    def tag = rootProject.properties['testwith.tag']
-    useJUnitPlatform {
-        includeTags tag
-    }
-}
-
-task testBehaviordrivenWithTag(type: Test){
-    def tag = rootProject.properties['behaviortestwith.tag']
-    doLast{
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
-        }
-    }
-}
-
 task testAllAPI(type: Test){
     useJUnitPlatform {
         includeTags 'api.test'
         excludeTags 'frontend.test'
     }
+}
+task testAllBDD(type: Test){
+    testBehaviordrivenWithTag()
+}
+
+task testWithTag(type: Test){
+    def tag = rootProject.properties['testwith.tag']
+    if(tag.contains('@')){
+        testBehaviordrivenWithTag()
+    } else {
+        useJUnitPlatform {
+            includeTags tag
+        }
+    }
+}
+
+def testBehaviordrivenWithTag(){
+    def tag = rootProject.properties['testwith.tag']
+    if(!tag.contains('@')) {
+        tag = '@BDD'
+    }
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
+        }
 }
