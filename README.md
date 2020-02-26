@@ -6,7 +6,7 @@ It's based on:
  - Junit 5 
  - Selenide.
   
-It is possible to split this project into a pure frontend or a pure API testing template.
+It is possible to split this project into a pure frontend or a pure API testing template.The project also supports Cucumber and BDD, but it is optional and the other parts of the project can be used without the BDD integration.
 
 ## Getting Started
 The project does not have any external dependencies, it is simply a collection of methods and classes to get a test automation framework of the ground. 
