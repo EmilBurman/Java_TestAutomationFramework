@@ -12,20 +12,6 @@ import java.time.Instant;
 import java.util.Date;
 
 public class StepDefinitionsCat {
-
-
-    @Before
-    public void before(){
-        System.out.println("^^^^ STARTING NEW BEHAVIORDRIVEN CAT TEST ^^^^");
-        System.out.println(Date.from(Instant.now()));
-    }
-
-    @After
-    public void after(){
-        System.out.println(Date.from(Instant.now()));
-        System.out.println("^^^^ ENDING BEHAVIORDRIVEN CAT TEST ^^^^");
-    }
-
     String response;
     @Given("I get a random cat fact")
     public void getRandomCatFact(){
