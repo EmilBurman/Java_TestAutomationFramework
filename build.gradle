@@ -39,7 +39,7 @@ test{
     useJUnitPlatform()
 }
 
-task testWithTag(type: Test){
+task testUsingTag(type: Test){
     def tag = rootProject.properties['testwith.tag']
     if(tag.contains('@')){
         finalizedBy 'testBehaviordrivenWithTag'
