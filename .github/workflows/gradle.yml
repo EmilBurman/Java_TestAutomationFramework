@@ -3,7 +3,7 @@ name: Code quality control
 on: [push]
 
 jobs:
-  Build_and_execute_tests:
+  Build:
 
     runs-on: ubuntu-latest
 
