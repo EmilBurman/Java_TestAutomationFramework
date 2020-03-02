@@ -20,7 +20,7 @@ dependencies {
     // Everything used by Selenide and Selenium
     compile         group: 'org.seleniumhq.selenium',       name: 'selenium-java',              version: rootProject.properties['selenium.version']
     compile         group: 'com.codeborne',                 name: 'selenide',                   version: rootProject.properties['selenide.version']
-    
+
     //Everything used for XML and JSON handling
     compile         group: 'com.googlecode.json-simple',    name: 'json-simple',                version: rootProject.properties['gson.version']
 
@@ -52,7 +52,10 @@ task testAllAPI(type: Test){
     }
 }
 task testAllBDD(type: Test){
-    testBehaviordrivenWithTag()
+    // Skip configuration phase
+    doLast{
+        testBehaviordrivenWithTag()
+    }
 }
 
 task testWithTag(type: Test){
@@ -71,9 +74,9 @@ def testBehaviordrivenWithTag(){
     if(!(tag.contains('@') || tag.contains('bdd'))) {
         tag = '@BDD'
     }
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
-        }
+    javaexec {
+        main = "io.cucumber.core.cli.Main"
+        classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+        args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
+    }
 }
