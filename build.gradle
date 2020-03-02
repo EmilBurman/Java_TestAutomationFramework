@@ -42,7 +42,7 @@ test{
 task testWithTag(type: Test){
     def tag = rootProject.properties['testwith.tag']
     if(tag.contains('@')){
-        testBehaviordrivenWithTag()
+        finalizedBy 'testBehaviordrivenWithTag'
     } else {
         useJUnitPlatform {
             includeTags tag
@@ -65,20 +65,15 @@ task testAllAPI(type: Test){
 }
 
 task testAllBDD(type: Test){
-    testBehaviordrivenWithTag()
-}
-
-def testBehaviordrivenWithTag(){
-    def tag = rootProject.properties['testwith.tag']
-    if(!tag.contains('@')) {
-        tag = '@BDD'
+    finalizedBy 'testBehaviordrivenWithTag'
+    doFirst {
+        rootProject.setProperty('testwith.tag', '@BDD')
     }
 }
 
 task testBehaviordrivenWithTag(type: Test) {
-    dependsOn assemble, compileTestJava
     def tag = rootProject.properties['testwith.tag']
-    doLast {
+    if(tag.contains('@')) {
         javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
