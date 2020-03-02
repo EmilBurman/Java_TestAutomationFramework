@@ -57,7 +57,7 @@ task testAllBDD(type: Test){
 
 task testWithTag(type: Test){
     def tag = rootProject.properties['testwith.tag']
-    if(tag.contains('@')){
+    if(tag.contains('@') || tag.contains('bdd')){
         testBehaviordrivenWithTag()
     } else {
         useJUnitPlatform {
@@ -68,7 +68,7 @@ task testWithTag(type: Test){
 
 def testBehaviordrivenWithTag(){
     def tag = rootProject.properties['testwith.tag']
-    if(!tag.contains('@')) {
+    if(!(tag.contains('@') || tag.contains('bdd'))) {
         tag = '@BDD'
     }
         javaexec {
