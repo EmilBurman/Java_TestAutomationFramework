@@ -18,6 +18,7 @@ jobs:
           CONFIG_PATH: ${{ secrets.GITHUB_WORKSPACE }}/.github/label-pr.yml
   Build:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v2
@@ -37,6 +38,7 @@ jobs:
   TestAPI:
     needs: Build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v2
@@ -65,6 +67,7 @@ jobs:
   TestBDD:
     needs: Build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v2
@@ -93,6 +96,7 @@ jobs:
   TestFrontend:
     needs: Build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v2

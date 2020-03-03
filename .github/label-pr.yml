@@ -1,6 +1,6 @@
 - regExp: ".*\\.ts+$"
   labels: ["typescript"]
-- regExp: ".*\\.yml+$"
+- regExp: "(.*\\.yml+$|.*\\.properties+$)"
   labels: ["configuration"]
 - regExp: ".*\\.sql+$"
   labels: ["database", "critical"]
@@ -10,7 +10,7 @@
   labels: ["code"]
 - regExp: ".*\\.png+$"
   labels: ["images"]
-- regExp: "^(pom\\.xml|package\\.json|build\\.gradle)$"
-  labels: ["dependencies"]
+- regExp: "^(build\\.gradle)$"
+  labels: ["gradle"]
 - regExp: ".*\\.(zip|jar|war|ear)+$"
   labels: ["artifact", "invalid"]
