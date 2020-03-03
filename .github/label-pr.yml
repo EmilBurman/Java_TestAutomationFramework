@@ -1,5 +1,7 @@
 - regExp: ".*\\.ts+$"
   labels: ["typescript"]
+- regExp: ".*\\.(yml|properties)+$"
+  labels: ["configuration"]
 - regExp: ".*\\.sql+$"
   labels: ["database", "critical"]
 - regExp: ".*\\.md+$"
