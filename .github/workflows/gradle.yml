@@ -18,7 +18,9 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test
   Test:
+
     needs: Build
+
     steps:
       - name: Api tests
         run: ./gradlew testAllAPI
