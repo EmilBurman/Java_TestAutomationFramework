@@ -58,12 +58,10 @@ task testAllAPI(type: Test){
       props.setProperty("omdb.api.key", secretApiToken )
       props.store(propsFile.newWriter(), null)
     }
-/*
     useJUnitPlatform {
         includeTags 'api.test'
         excludeTags 'frontend.test'
     }
-*/
 }
 task testAllBDD(type: Test){
     // Only perform during execution phase, i.e when called
