@@ -38,6 +38,16 @@ jobs:
       run: chmod +x gradlew
     - name: Test Api with gradle
       run: ./gradlew testAllAPI
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: API Failures - Test Results
+        path: build/test-results/testAllAPI
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: API Failures - Reports
+        path: build/reports/tests/testAllAPI
 
   TestBDD:
     needs: Build
@@ -56,3 +66,13 @@ jobs:
       run: chmod +x gradlew
     - name: Test BDD with gradle
       run: ./gradlew testAllBDD
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: BDD Failures - Test Results
+        path: build/test-results/testAllBDD
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: BDD Failures - Reports
+        path: build/reports/tests/testAllBDD
