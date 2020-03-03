@@ -52,16 +52,16 @@ task testAllAPI(type: Test){
     }
 }
 task testAllBDD(type: Test){
-    // Skip configuration phase
+    // Only perform during execution phase, i.e when called
     doLast{
-        testBehaviordrivenWithTag()
+        testBehaviordrivenWithTag('@BDD')
     }
 }
 
 task testWithTag(type: Test){
     def tag = rootProject.properties['testwith.tag']
-    if(tag.contains('@') || tag.contains('bdd')){
-        testBehaviordrivenWithTag()
+    if(tag.contains('@')){
+        testBehaviordrivenWithTag(tag)
     } else {
         useJUnitPlatform {
             includeTags tag
@@ -69,14 +69,12 @@ task testWithTag(type: Test){
     }
 }
 
-def testBehaviordrivenWithTag(){
-    def tag = rootProject.properties['testwith.tag']
-    if(!(tag.contains('@') || tag.contains('bdd'))) {
-        tag = '@BDD'
-    }
-    javaexec {
-        main = "io.cucumber.core.cli.Main"
-        classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-        args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
+def testBehaviordrivenWithTag(String tag){
+    if(tag.contains('@')) {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'framework/behaviordriven/services', 'src/test/resources/framework/behaviordriven/services', '--tags', tag, '--strict']
+        }
     }
 }
