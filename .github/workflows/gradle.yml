@@ -37,7 +37,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test Api with gradle
-      run: ./gradlew testAllAPI
+      run: ./gradlew testAllAPI -Pomdb.api.key=${{ secrets.OMIKey }}
     - uses: actions/upload-artifact@v1
       if: failure()
       with:
