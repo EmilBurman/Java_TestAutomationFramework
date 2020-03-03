@@ -18,8 +18,8 @@ jobs:
       run: ./gradlew clean build -x test
     - uses: actions/upload-artifact@v1
       with:
-        name: TestAutomationFramework.jar
-        path: build/libs/TestAutomationFramework-*.jar
+        name: builtArtifacts
+        path: build/libs
 
   Test:
     needs: Build
@@ -33,7 +33,7 @@ jobs:
         java-version: 1.8
     - uses: actions/download-artifact@v1
       with:
-        name: TestAutomationFramework.jar
+        name: builtArtifacts
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test Api with gradle
