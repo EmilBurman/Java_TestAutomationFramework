@@ -19,11 +19,8 @@ jobs:
       run: ./gradlew clean build -x test
   Test:
     needs: Build
-    jobs:
-      api_test:
-        steps:
-        - name: Api tests
-          run: ./gradlew testAllAPI
-      bdd_test:
-        - name: BDD tests
-          run: ./gradlew testAllBDD
+    steps:
+      - name: Api tests
+        run: ./gradlew testAllAPI
+      - name: BDD tests
+        run: ./gradlew testAllBDD
