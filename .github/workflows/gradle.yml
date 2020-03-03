@@ -5,12 +5,12 @@ on: [push]
 jobs:
   Label:
     runs-on: ubuntu-latest
+    on: [pull_request]
 
     steps:
       # We need to checkout the repository to access the configured file (.github/label-pr.yml)
       - uses: actions/checkout@v2
       - name: Labeler
-        if: github.event_name == 'pull_request'
         uses: docker://decathlon/pull-request-labeler-action:2.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
