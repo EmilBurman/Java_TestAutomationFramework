@@ -19,12 +19,11 @@ jobs:
       run: ./gradlew clean build -x test
   Test:
     needs: Build
-    steps:
-    - name: Test with Gradle
-      jobs:
-        api_test:
-          name: Api tests
+    jobs:
+      api_test:
+        steps:
+        - name: Api tests
           run: ./gradlew testAllAPI
-        bdd_test:
-          name: BDD tests
+      bdd_test:
+        - name: BDD tests
           run: ./gradlew testAllBDD
