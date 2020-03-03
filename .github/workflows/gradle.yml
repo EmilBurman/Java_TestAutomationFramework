@@ -92,15 +92,15 @@ jobs:
         name: builtArtifacts
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Test BDD with gradle
-      run: ./gradlew testAllFrontend 
+    - name: Test Frontend with gradle
+      run: ./gradlew testAllFrontend
     - uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: BDD Failures - Test Results
+        name: Frontend Failures - Test Results
         path: build/test-results/testAllFrontend
     - uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: BDD Failures - Reports
+        name: Frontend Failures - Reports
         path: build/reports/tests/testAllFrontend
