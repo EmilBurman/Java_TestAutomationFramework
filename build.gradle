@@ -46,10 +46,24 @@ task testAllFrontend(type: Test){
     }
 }
 task testAllAPI(type: Test){
+
+    def secretApiToken = findProperty("omdb.api.key")
+    if(secretApiToken){
+      println "Using a Secret API token\n"
+
+      def props = new Properties()
+      File propsFile = file "src/main/resources/api.secrets.properties"
+
+      props.load(propsFile.newDataInputStream())
+      props.setProperty("omdb.api.key", secretApiToken )
+      props.store(propsFile.newWriter(), null)
+    }
+/*
     useJUnitPlatform {
         includeTags 'api.test'
         excludeTags 'frontend.test'
     }
+*/
 }
 task testAllBDD(type: Test){
     // Only perform during execution phase, i.e when called
