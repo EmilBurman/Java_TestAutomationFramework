@@ -29,6 +29,10 @@ public class WebdriverFactory {
         System.out.println("The selected headless state is: " + headless);
         System.out.println("The selected implicit timeout limit is: " + timeout);
 
+        if(remoteExecution){
+            Configuration.remote = remoteHost;
+        }
+
         switch (browser) {
             case IE:
                 Configuration.fastSetValue = true;
@@ -49,11 +53,6 @@ public class WebdriverFactory {
         Configuration.timeout = timeout;
         Configuration.startMaximized = true;
         Configuration.pageLoadStrategy = pageLoadStrategy;
-
-        if(remoteExecution){
-            Configuration.remote = remoteHost;
-        }
-
     }
 
     private static void shutdownWebdriver(){
