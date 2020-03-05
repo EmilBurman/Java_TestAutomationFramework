@@ -9,6 +9,11 @@ gradle-app.setting
 !gradle-wrapper.jar
 
 ##############################
+## Secrets
+##############################
+src/main/resources/api.secrets.properties
+
+##############################
 ## IntelliJ
 ##############################
 out/

@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static framework.utils.Tags.*;
 
-
+@Tag(API)
 @Tag(API_OMDB)
 public class GetTitle_api_test extends AbstractApiTestcase {
 

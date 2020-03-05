@@ -20,7 +20,7 @@ dependencies {
     // Everything used by Selenide and Selenium
     compile         group: 'org.seleniumhq.selenium',       name: 'selenium-java',              version: rootProject.properties['selenium.version']
     compile         group: 'com.codeborne',                 name: 'selenide',                   version: rootProject.properties['selenide.version']
-    
+
     //Everything used for XML and JSON handling
     compile         group: 'com.googlecode.json-simple',    name: 'json-simple',                version: rootProject.properties['gson.version']
 
@@ -39,10 +39,41 @@ test{
     useJUnitPlatform()
 }
 
-task testUsingTag(type: Test){
+task testAllFrontend(type: Test){
+    useJUnitPlatform {
+        includeTags 'frontend.test'
+        excludeTags 'api.test'
+    }
+}
+task testAllAPI(type: Test){
+
+    def secretApiToken = findProperty("omdb.api.key")
+    if(secretApiToken){
+      println "Using a Secret API token\n"
+
+      def props = new Properties()
+      File propsFile = file "src/main/resources/api.secrets.properties"
+
+      props.load(propsFile.newDataInputStream())
+      props.setProperty("omdb.api.key", secretApiToken )
+      props.store(propsFile.newWriter(), null)
+    }
+    useJUnitPlatform {
+        includeTags 'api.test'
+        excludeTags 'frontend.test'
+    }
+}
+task testAllBDD(type: Test){
+    // Only perform during execution phase, i.e when called
+    doLast{
+        testBehaviordrivenWithTag('@BDD')
+    }
+}
+
+task testWithTag(type: Test){
     def tag = rootProject.properties['testwith.tag']
     if(tag.contains('@')){
-        finalizedBy 'testBehaviordrivenWithTag'
+        testBehaviordrivenWithTag(tag)
     } else {
         useJUnitPlatform {
             includeTags tag
@@ -50,30 +81,7 @@ task testUsingTag(type: Test){
     }
 }
 
-task testAllFrontend(type: Test){
-    useJUnitPlatform {
-        includeTags 'frontend.test'
-        excludeTags 'api.test'
-    }
-}
-
-task testAllAPI(type: Test){
-    useJUnitPlatform {
-        includeTags 'api.test'
-        excludeTags 'frontend.test'
-    }
-}
-
-task testAllBDD(type: Test){
-    finalizedBy 'testBehaviordrivenWithTag'
-    doFirst {
-        rootProject.setProperty('testwith.tag', '@BDD')
-    }
-}
-
-task testBehaviordrivenWithTag(type: Test) {
-    dependsOn assemble, compileTestJava
-    def tag = rootProject.properties['testwith.tag']
+def testBehaviordrivenWithTag(String tag){
     if(tag.contains('@')) {
         javaexec {
             main = "io.cucumber.core.cli.Main"
