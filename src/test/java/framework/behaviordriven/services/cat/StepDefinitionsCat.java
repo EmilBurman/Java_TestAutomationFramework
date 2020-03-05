@@ -8,9 +8,14 @@ import org.junit.jupiter.api.Assertions;
 
 public class StepDefinitionsCat {
     String response;
+    String uri;
     @Given("I get a random cat fact")
     public void getRandomCatFact(){
-        response = CatServiceManager.getResponseFromUriAsJson("test");
+        uri = new CatServiceManager.CatRequestBuilder()
+                .getRandom()
+                .build()
+                .toString();
+        response = CatServiceManager.getResponseFromUriAsJsonString(uri);
         Assertions.assertNotNull(response);
     }
 

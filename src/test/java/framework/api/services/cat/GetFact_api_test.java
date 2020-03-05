@@ -30,7 +30,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ValueSource(strings = {HORSE,DOG})
     public void checkIfAnimalTypeExists(String animalType){
         uriRequest = new CatServiceManager.CatRequestBuilder()
-                .getRandom(true)
+                .getRandom()
                 .usingAnimalType(animalType)
                 .build()
                 .toString();
@@ -43,7 +43,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ValueSource(ints = {5,10})
     public void getDifferentAmountOfAnimal(Integer amount){
         uriRequest = new CatServiceManager.CatRequestBuilder()
-                .getRandom(true)
+                .getRandom()
                 .withAmount(amount)
                 .build()
                 .toString();
@@ -55,7 +55,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @Test
     public void validateRandomFactResponseTextIsNotEmpty(){
         uriRequest = new CatServiceManager.CatRequestBuilder()
-                .getRandom(true)
+                .getRandom()
                 .build()
                 .toString();
         String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);

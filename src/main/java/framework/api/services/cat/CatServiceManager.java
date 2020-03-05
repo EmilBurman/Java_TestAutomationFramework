@@ -23,7 +23,7 @@ public class CatServiceManager extends UriRequest {
     private boolean useRandom = true;
     private String id;
 
-    public static String getResponseFromUriAsJson(String uri){
+    public static String getResponseFromUriAsJsonString(String uri){
         String responseString = "";
         HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri, null).getEntity();
 
@@ -105,8 +105,8 @@ public class CatServiceManager extends UriRequest {
             return this;
         }
 
-        public CatRequestBuilder getRandom(Boolean shouldGetRandom){
-            this.useRandom = shouldGetRandom;
+        public CatRequestBuilder getRandom(){
+            this.useRandom = true;
             return this;
         }
 
