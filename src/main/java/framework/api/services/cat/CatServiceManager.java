@@ -1,6 +1,8 @@
 package framework.api.services.cat;
 
 import framework.adapters.HTTPadapter;
+import framework.api.services.UriRequest;
+import framework.api.services.omdb.OmdbServiceManager;
 import framework.utils.JsonUtils;
 import framework.utils.PropertyUtils;
 import org.apache.http.HttpEntity;
@@ -8,17 +10,22 @@ import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
-public class CatServiceManager {
+public class CatServiceManager extends UriRequest {
 
     static final String host = PropertyUtils.getPropString("cat.api.host","env.produktion.api.properties");
-    static final String factBaseURI = PropertyUtils.getPropString("cat.api.uri.fact","env.produktion.api.properties");
+    private boolean searchUsers = false;
+    private boolean useRandom = true;
+    private String id;
 
-    public static String getRandomCatFact(){
+    public static String getResponseFromUriAsJson(String uri){
         String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random", null).getEntity();
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri, null).getEntity();
 
         try {
             responseString = EntityUtils.toString(responseEntity);
@@ -26,63 +33,89 @@ public class CatServiceManager {
             e.printStackTrace();
         }
 
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"text");
-    }
-
-    public static String getRandomCatFactObject(){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random", null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JsonUtils.prettyPrintJSON(responseString);
         return responseString;
     }
 
-    public static String getOtherAnimalFact(String animal){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random?animal_type="+animal, null).getEntity();
+    public static HttpResponse getResponseFromUriAsHttpEntity(String uri){
+        HttpResponse responseEntity = HTTPadapter.sendGetCall(host, uri, null);
+        return responseEntity;
+    }
 
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
+    /*
+    Everything below here is used to create the URI used to connect to the API.
+    If the API changes, please adjust the variables below in order to facilitate the change.
+    */
+
+    @Override
+    public String toString(){
+        String endpoint = CreateEndpointFromVariables();
+        String uri = uriMap.entrySet().stream().map(Object::toString).collect(Collectors.joining("&"));
+        System.out.println(uri);
+        return (endpoint+uri);
+    }
+
+    private String CreateEndpointFromVariables() {
+        String endpoint ="/facts";
+        if(searchUsers)
+            endpoint ="/users";
+
+        if(!(id ==null))
+            return endpoint+"/"+id;
+        else {
+            if (!searchUsers && useRandom)
+                endpoint += "/random";
+
+            if (uriMap.isEmpty())
+                endpoint += "/";
+            else
+                endpoint += "?";
+
+            return endpoint;
+        }
+    }
+
+    public CatServiceManager(CatRequestBuilder builder){
+        this.id = builder.id;
+        this.searchUsers = builder.searchUsers;
+        this.useRandom = builder.useRandom;
+        this.uriMap = builder.uriMap;
+    }
+
+    public static class CatRequestBuilder{
+        private Map<String, String> uriMap= new HashMap<String,String>();
+        private String id;
+        private boolean searchUsers = false;
+        private boolean useRandom = false;
+
+        public CatRequestBuilder(){
         }
 
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"type");
-    }
-
-    public static String getSpecificFactText(String factID){
-        String responseString = getSpecificFactObject(factID);
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"text");
-    }
-
-    public static String getSpecificFactObject(String factID){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/"+factID, null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
+        public CatRequestBuilder usingAnimalType(String animalType){
+            uriMap.put("animal_type",animalType);
+            return this;
         }
 
-        JsonUtils.prettyPrintJSON(responseString);
-        return responseString;
-    }
+        public CatRequestBuilder withAmount(Integer amount){
+            uriMap.put("amount",amount.toString());
+            return this;
+        }
 
-    public static boolean validateResponseCode(int expectedResponseCode, String endpoint){
-        HttpResponse response = HTTPadapter.sendGetCall(host, factBaseURI+endpoint, null);
-        return HTTPadapter.validateResponseCode(expectedResponseCode,response);
-    }
-    public static boolean validateResponseCodeFromObject(int expectedResponseCode, HttpResponse expectedObject){
-        return HTTPadapter.validateResponseCode(expectedResponseCode,expectedObject);
+        public CatRequestBuilder usingID(String id){
+            this.id = id;
+            return this;
+        }
+
+        public CatRequestBuilder getRandom(Boolean shouldGetRandom){
+            this.useRandom = shouldGetRandom;
+            return this;
+        }
+
+        public CatRequestBuilder searchByUser(Boolean useUser){
+            this.searchUsers = useUser;
+            return this;
+        }
+        public CatServiceManager build(){
+            return new CatServiceManager(this);
+        }
     }
 }

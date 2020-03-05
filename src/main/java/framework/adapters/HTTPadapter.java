@@ -17,6 +17,7 @@ public class HTTPadapter {
     public static HttpResponse sendGetCall(String host, String URI, Map<String, String> headers) {
 
         HttpUriRequest request = new HttpGet(host + URI);
+        System.out.println(request);
 
         if (headers!=null){
             headers.forEach((headerKey, headerValue) -> {
@@ -45,22 +46,22 @@ public class HTTPadapter {
                 = HttpClients.custom().setConnectionManager(poolingConnManager)
                 .build();
 
-        HttpPost postAnrop = new HttpPost(host + URI);
+        HttpPost request = new HttpPost(host + URI);
 
         JsonUtils.prettyPrintJSON(stringBody);
 
         if (headers!=null){
             headers.forEach((headerKey, headerValue) -> {
-                postAnrop.addHeader(headerKey, headerValue);
+                request.addHeader(headerKey, headerValue);
             });
         }
 
         HttpResponse httpResponse;
         try {
             StringEntity se = new StringEntity(stringBody);
-            postAnrop.setEntity(se);
+            request.setEntity(se);
 
-            httpResponse = client.execute(postAnrop);
+            httpResponse = client.execute(request);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
@@ -70,25 +71,25 @@ public class HTTPadapter {
     }
 
     public static HttpResponse sendPutCall(String host, String URI, String stringBody, Map<String, String> headers) {
-        HttpPut putAnrop = new HttpPut(host + URI);
+        HttpPut request = new HttpPut(host + URI);
 
         if (headers!=null) {
             headers.forEach((headerKey, headerValue) -> {
-                putAnrop.addHeader(headerKey, headerValue);
+                request.addHeader(headerKey, headerValue);
             });
         }
         else{
-            putAnrop.addHeader("content-type", "application/json");
+            request.addHeader("content-type", "application/json");
         }
         HttpResponse httpResponse;
         try {
 
             StringEntity se = new StringEntity(stringBody);
-            putAnrop.setEntity(se);
+            request.setEntity(se);
 
             httpResponse = HttpClientBuilder.create()
                     .build()
-                    .execute(putAnrop);
+                    .execute(request);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }

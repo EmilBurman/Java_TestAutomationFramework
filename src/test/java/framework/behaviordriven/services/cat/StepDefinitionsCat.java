@@ -10,7 +10,7 @@ public class StepDefinitionsCat {
     String response;
     @Given("I get a random cat fact")
     public void getRandomCatFact(){
-        response = CatServiceManager.getRandomCatFactObject();
+        response = CatServiceManager.getResponseFromUriAsJson("test");
         Assertions.assertNotNull(response);
     }
 
