@@ -8,8 +8,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
@@ -29,7 +27,7 @@ public class OmdbServiceManager extends UriRequest{
         return getSpecificValueFromJSON(responseString,"Title");
     }
 
-    public static String getResponseAsString(String uri){
+    public static String getResponseAsJsonString(String uri){
         String responseString = "";
         HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apikey, null).getEntity();
         try {
@@ -48,38 +46,37 @@ public class OmdbServiceManager extends UriRequest{
      */
 
     public OmdbServiceManager(omdbRequestBuilder builder) {
-        this.uriMap = builder.uriMap;
+        this.uriMap = builder.getUriMap();
     }
 
-    public static class omdbRequestBuilder {
-        private Map<String, String> uriMap= new HashMap<String,String>();
+    public static class omdbRequestBuilder extends UriRequest{
 
         public omdbRequestBuilder(String searchType, String searchTerm){
-            uriMap.put(searchType,searchTerm);
+            addToMap(searchType, searchTerm);
         }
 
         public omdbRequestBuilder usingFormat(String entertainmentFormat){
-            uriMap.put("type",entertainmentFormat);
+            addToMap("type",entertainmentFormat);
             return this;
         }
 
         public omdbRequestBuilder usingYear(String year){
-            uriMap.put("y", year);
+            addToMap("y", year);
             return this;
         }
 
         public omdbRequestBuilder withPlotType(String plotType){
-            uriMap.put("plot", plotType);
+            addToMap("plot", plotType);
             return this;
         }
 
         public omdbRequestBuilder withPageNumber(Integer page){
-            uriMap.put("page", page.toString());
+            addToMap("page", page.toString());
             return this;
         }
 
         public omdbRequestBuilder usingDatatype(String datatype){
-            uriMap.put("r", datatype);
+            addToMap("r", datatype);
             return this;
         }
 

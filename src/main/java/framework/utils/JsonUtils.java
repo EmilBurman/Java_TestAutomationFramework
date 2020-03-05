@@ -1,8 +1,5 @@
 package framework.utils;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.HttpResponse;
@@ -11,6 +8,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.util.logging.Logger;
 
 public class JsonUtils {
 

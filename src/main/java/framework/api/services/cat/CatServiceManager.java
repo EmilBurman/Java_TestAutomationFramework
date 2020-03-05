@@ -2,19 +2,13 @@ package framework.api.services.cat;
 
 import framework.adapters.HTTPadapter;
 import framework.api.services.UriRequest;
-import framework.api.services.omdb.OmdbServiceManager;
-import framework.utils.JsonUtils;
 import framework.utils.PropertyUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
-
-import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
 public class CatServiceManager extends UriRequest {
 
@@ -78,11 +72,10 @@ public class CatServiceManager extends UriRequest {
         this.id = builder.id;
         this.searchUsers = builder.searchUsers;
         this.useRandom = builder.useRandom;
-        this.uriMap = builder.uriMap;
+        this.uriMap = builder.getUriMap();
     }
 
-    public static class CatRequestBuilder{
-        private Map<String, String> uriMap= new HashMap<String,String>();
+    public static class CatRequestBuilder extends UriRequest{
         private String id;
         private boolean searchUsers = false;
         private boolean useRandom = false;
@@ -91,12 +84,12 @@ public class CatServiceManager extends UriRequest {
         }
 
         public CatRequestBuilder usingAnimalType(String animalType){
-            uriMap.put("animal_type",animalType);
+            addToMap("animal_type",animalType);
             return this;
         }
 
         public CatRequestBuilder withAmount(Integer amount){
-            uriMap.put("amount",amount.toString());
+            addToMap("amount",amount.toString());
             return this;
         }
 

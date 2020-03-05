@@ -49,7 +49,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
                 .toString();
         String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
         // Make sure JSON contains expected value
-        Assertions.assertTrue(convertJSONStringToJSONArray(responseAsJson).size()==amount, "Unable to get a fact, please investigate.");
+        Assertions.assertTrue(convertJSONStringToJSONArray(responseAsJson).size()==amount, "Unable to get several facts, please investigate.");
     }
 
     @Test
