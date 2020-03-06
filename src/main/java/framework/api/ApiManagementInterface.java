@@ -8,5 +8,8 @@ public interface ApiManagementInterface {
 
     String getSpecificValueFromJsonResponse(String uriToConnectThrough, String jsonKey);
 
+    String getSpecificValueFromXmlResponse(String uriToConnectThrough, String xmlKey);
+
     HttpResponse getResponseFromUriAsHttpResponse(String uriToConnectThrough);
+
 }

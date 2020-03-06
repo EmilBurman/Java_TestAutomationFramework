@@ -116,8 +116,7 @@ public class JsonUtils {
 
     // It's currently unable to handle multiple matches to same value
     public static String getSpecificValueFromJSON(String jsonString, String key){
-        JSONObject jsonObject = convertJSONStringToJSONObject(jsonString);
-        return String.valueOf(jsonObject.get(key));
+        return getSpecificValueFromJSON(convertJSONStringToJSONObject(jsonString), key);
     }
 
     public static String getSpecificValueFromJSON(JSONObject jsonObject, String key){
