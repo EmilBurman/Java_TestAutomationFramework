@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static framework.api.services.ApiServiceManager.getResponseFromUriAsJsonString;
 import static framework.api.services.misc.AvailableApiServices.OMDB;
 import static framework.api.services.misc.OmdbApiTerms.*;
-import static framework.tags.JsonUtils.getSpecificValueFromJSON;
+import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 import static framework.tags.TestcaseTags.*;
 
 @Tag(API)

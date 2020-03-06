@@ -1,7 +1,7 @@
 package framework.api.services.omdb;
 
 import framework.api.services.ApiManagementInterface;
-import framework.tags.PropertyUtils;
+import framework.utils.PropertyUtils;
 import org.apache.http.HttpResponse;
 
 import static framework.adapters.HTTPadapter.getResponseAsJsonString;

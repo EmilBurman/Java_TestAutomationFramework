@@ -2,7 +2,7 @@ package framework.api.services.cat;
 
 import framework.api.services.ApiManagementInterface;
 import framework.adapters.HTTPadapter;
-import framework.tags.PropertyUtils;
+import framework.utils.PropertyUtils;
 import org.apache.http.HttpResponse;
 
 import static framework.adapters.HTTPadapter.getResponseAsJsonString;

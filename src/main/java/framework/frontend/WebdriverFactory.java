@@ -2,7 +2,7 @@ package framework.frontend;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import framework.tags.PropertyUtils;
+import framework.utils.PropertyUtils;
 
 import static com.codeborne.selenide.Browsers.*;
 

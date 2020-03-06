@@ -19,7 +19,7 @@ import static framework.api.services.ApiServiceManager.getResponseFromUriAsHttpR
 import static framework.api.services.misc.AvailableApiServices.CAT;
 import static framework.api.services.misc.CatApiTerms.DOG;
 import static framework.api.services.misc.CatApiTerms.HORSE;
-import static framework.tags.JsonUtils.*;
+import static framework.utils.JsonUtils.*;
 import static framework.tags.TestcaseTags.API;
 import static framework.tags.TestcaseTags.API_CAT;
 

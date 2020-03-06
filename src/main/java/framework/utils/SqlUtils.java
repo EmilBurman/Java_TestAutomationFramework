@@ -1,4 +1,4 @@
-package framework.tags;
+package framework.utils;
 
 public class SqlUtils {
 

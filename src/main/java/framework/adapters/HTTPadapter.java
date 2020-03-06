@@ -1,6 +1,6 @@
 package framework.adapters;
 
-import framework.tags.JsonUtils;
+import framework.utils.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Map;
 
-import static framework.tags.JsonUtils.getSpecificValueFromJSON;
+import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
 public class HTTPadapter {
 

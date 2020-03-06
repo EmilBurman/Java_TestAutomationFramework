@@ -1,4 +1,4 @@
-package framework.tags;
+package framework.utils;
 
 import java.io.File;
 import java.io.FileReader;

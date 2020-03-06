@@ -1,4 +1,4 @@
-package framework.tags;
+package framework.utils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
