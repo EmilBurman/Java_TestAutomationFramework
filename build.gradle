@@ -97,13 +97,30 @@ test.finalizedBy jacocoTestReport
 
 // Set JaCoco code coverage limits
 jacocoTestCoverageVerification {
-     violationRules {
-             rule {
-                  limit {
-                        minimum = 0.6
-                  }
-             }
-     }
+    violationRules {
+        rule {
+            limit {
+                // code coverage limit to 50%
+                minimum = 0.5
+            }
+        }
+    }
+}
+
+// exclude specific files and subdirectories from coverage report
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                exclude: [
+                    'framework/utils/*',
+                    'framework/utils/**',
+                    'framework/api/misc/*',
+                    'framework/api/misc/**'
+                ]
+            )
+        }))
+    }
 }
 
 // Ensure we enforce code coverage.
