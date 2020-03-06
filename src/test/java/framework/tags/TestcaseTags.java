@@ -2,7 +2,7 @@ package framework.utils;
 
 import org.junit.jupiter.api.Tag;
 
-public class Tags {
+public class TestcaseTags {
     // All tags connected to frontend testing through Selenium
     public static final String FRONTEND = "frontend.test";
     public static final String FRONTEND_WIKIPEDIA = "frontend.test.wikipedia";
