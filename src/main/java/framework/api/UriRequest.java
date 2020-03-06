@@ -1,4 +1,4 @@
-package framework.api.services;
+package framework.api;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

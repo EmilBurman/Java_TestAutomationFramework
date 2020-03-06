@@ -1,6 +1,6 @@
-package framework.api.services.utils;
+package framework.api.misc;
 
-public class OmdbTags {
+public class OmdbApiTerms {
 
     // Possible search types
     public static final String SEARCH = "s";
