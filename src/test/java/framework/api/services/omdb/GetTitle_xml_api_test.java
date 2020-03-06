@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 
+import static framework.tags.TestcaseTags.*;
 import static framework.api.misc.AvailableApiServices.OMDB;
 import static framework.api.misc.OmdbApiTerms.*;
 import static framework.api.misc.OmdbApiTerms.SHORT_PLOT;
