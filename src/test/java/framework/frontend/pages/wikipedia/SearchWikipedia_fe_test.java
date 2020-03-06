@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static framework.utils.Tags.FRONTEND;
-import static framework.utils.Tags.FRONTEND_WIKIPEDIA;
+import static framework.tags.TestcaseTags.FRONTEND;
+import static framework.tags.TestcaseTags.FRONTEND_WIKIPEDIA;
 
 public class SearchWikipedia_fe_test extends AbstractFrontendTestcase {
 

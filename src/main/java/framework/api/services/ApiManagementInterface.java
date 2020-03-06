@@ -1,4 +1,4 @@
-package framework;
+package framework.api.services;
 
 import org.apache.http.HttpResponse;
 

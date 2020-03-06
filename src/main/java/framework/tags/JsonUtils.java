@@ -1,4 +1,4 @@
-package framework.utils;
+package framework.tags;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

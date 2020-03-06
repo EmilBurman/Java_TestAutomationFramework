@@ -1,4 +1,4 @@
-package framework.api.services.configuration;
+package framework.api.services.misc;
 
 public class OmdbApiTerms {
 

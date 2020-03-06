@@ -1,4 +1,4 @@
-package framework.utils;
+package framework.tags;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

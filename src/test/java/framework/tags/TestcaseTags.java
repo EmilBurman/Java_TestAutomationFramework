@@ -1,6 +1,4 @@
-package framework.utils;
-
-import org.junit.jupiter.api.Tag;
+package framework.tags;
 
 public class TestcaseTags {
     // All tags connected to frontend testing through Selenium

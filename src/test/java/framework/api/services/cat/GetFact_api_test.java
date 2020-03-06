@@ -15,11 +15,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.stream.Stream;
 
 import static framework.adapters.HTTPadapter.validateResponseCode;
-import static framework.api.services.utils.CatTags.DOG;
-import static framework.api.services.utils.CatTags.HORSE;
-import static framework.utils.JsonUtils.*;
-import static framework.utils.Tags.API;
-import static framework.utils.Tags.API_CAT;
+import static framework.api.services.ApiServiceManager.getResponseFromUriAsHttpResponse;
+import static framework.api.services.misc.AvailableApiServices.CAT;
+import static framework.api.services.misc.CatApiTerms.DOG;
+import static framework.api.services.misc.CatApiTerms.HORSE;
+import static framework.tags.JsonUtils.*;
+import static framework.tags.TestcaseTags.API;
+import static framework.tags.TestcaseTags.API_CAT;
 
 @Tag(API)
 @Tag(API_CAT)
@@ -28,7 +30,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ParameterizedTest
     @ValueSource(strings = {HORSE,DOG})
     public void checkIfAnimalTypeExists(String animalType){
-        uriRequest = new CatServiceManager.CatRequestBuilder()
+        uriRequest = new CatUriRequest.CatRequestBuilder()
                 .getRandom()
                 .usingAnimalType(animalType)
                 .build()
@@ -41,7 +43,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ParameterizedTest
     @ValueSource(ints = {5,10})
     public void getDifferentAmountOfAnimal(Integer amount){
-        uriRequest = new CatServiceManager.CatRequestBuilder()
+        uriRequest = new CatUriRequest.CatRequestBuilder()
                 .getRandom()
                 .withAmount(amount)
                 .build()
@@ -53,7 +55,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
 
     @Test
     public void validateRandomFactResponseTextIsNotEmpty(){
-        uriRequest = new CatServiceManager.CatRequestBuilder()
+        uriRequest = new CatUriRequest.CatRequestBuilder()
                 .getRandom()
                 .build()
                 .toString();
@@ -65,7 +67,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ParameterizedTest
     @MethodSource("specificCatFacts")
     public void validateSpecificFactThroughId(String factID, String expectedFact){
-        uriRequest = new CatServiceManager.CatRequestBuilder()
+        uriRequest = new CatUriRequest.CatRequestBuilder()
                 .usingID(factID)
                 .build()
                 .toString();
@@ -84,7 +86,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ParameterizedTest
     @MethodSource("specificCatObjects")
     public void validateEntireObject(String factID, JSONObject expectedObject){
-        uriRequest = new CatServiceManager.CatRequestBuilder()
+        uriRequest = new CatUriRequest.CatRequestBuilder()
                 .usingID(factID)
                 .build()
                 .toString();
@@ -100,7 +102,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
 
     public String checkResponseAndConvertToJsonString(String uri){
         // Make the call
-        HttpResponse responseAsHttp = new CatServiceManager().getResponseFromUriAsHttpResponse(uri);
+        HttpResponse responseAsHttp = getResponseFromUriAsHttpResponse(CAT, uri);
         // Validate 200 as expected from call
         Assertions.assertTrue(validateResponseCode(HttpStatus.SC_OK,responseAsHttp));
         // Convert to json to manage data validation
