@@ -121,3 +121,30 @@ jobs:
       with:
         name: Frontend Failures - Reports
         path: build/reports/tests/testAllFrontend
+  CodeCoverage:
+    needs: Build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - uses: actions/download-artifact@v1
+      with:
+        name: builtArtifacts
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: perform checks with gradle
+      run: ./gradlew check
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: Coverage Failures - Test Results
+        path: build/jacoco
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Coverage Reports
+        path: build/reports/jacoco/test/html
