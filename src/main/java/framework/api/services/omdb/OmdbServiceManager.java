@@ -1,6 +1,6 @@
 package framework.api.services.omdb;
 
-import framework.api.services.ApiManagementInterface;
+import framework.api.ApiManagementInterface;
 import framework.utils.PropertyUtils;
 import org.apache.http.HttpResponse;
 

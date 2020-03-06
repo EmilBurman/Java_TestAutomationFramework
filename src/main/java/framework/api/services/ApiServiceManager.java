@@ -1,8 +1,9 @@
 package framework.api.services;
 
+import framework.api.ApiManagementInterface;
 import framework.api.services.cat.CatServiceManager;
 import framework.api.services.omdb.OmdbServiceManager;
-import framework.api.services.misc.AvailableApiServices;
+import framework.api.misc.AvailableApiServices;
 import org.apache.http.HttpResponse;
 
 public class ApiServiceManager{

@@ -1,6 +1,6 @@
 package framework.api.services.cat;
 
-import framework.api.services.UriRequest;
+import framework.api.UriRequest;
 
 import java.util.stream.Collectors;
 

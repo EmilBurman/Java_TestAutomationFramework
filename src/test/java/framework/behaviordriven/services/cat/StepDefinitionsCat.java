@@ -7,7 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
 import static framework.api.services.ApiServiceManager.getResponseFromUriAsJsonString;
-import static framework.api.services.misc.AvailableApiServices.CAT;
+import static framework.api.misc.AvailableApiServices.CAT;
 
 public class StepDefinitionsCat {
     String response;

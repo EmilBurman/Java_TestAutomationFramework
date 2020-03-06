@@ -1,6 +1,6 @@
 package framework.api.services.omdb;
 
-import framework.api.services.UriRequest;
+import framework.api.UriRequest;
 
 public class OmdbUriRequest extends UriRequest{
     public OmdbUriRequest(omdbRequestBuilder builder) {

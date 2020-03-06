@@ -1,6 +1,6 @@
 package framework.api.services.cat;
 
-import framework.api.services.ApiManagementInterface;
+import framework.api.ApiManagementInterface;
 import framework.adapters.HTTPadapter;
 import framework.utils.PropertyUtils;
 import org.apache.http.HttpResponse;
