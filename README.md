@@ -31,6 +31,18 @@ To run a complete test suite simply type gradle test into your terminal.
 
 * See gradle.properties or build.gradle for an overview of the different libraries used for the framework.
 
+## Extending the framework
+Currently there are no hard rules within the framework, but there are several patterns used that is recommended to continue using:
+- Every API test is currently using a builder pattern to create a URI and then use that for further tests towards their API management class.
+- Every API management class currently implemenents the API management interface. This is to ensure consistency between classes.
+- The Selenide framework uses a factory pattern to determine the needed browser. It is recommended to maintain this pattern since it eases management of the webdriver itself.
+- The implementation of Selenide is built upon the Page Object Model, which decouples tests and the selenide framework itself. It is highly recommended that every extension to the selenide test suite maintains this implementation.
+
+### Possible improvements
+The current BDD implementation is barebones, it is more of a proof of concept than anything else. If anyone would like to further this implementation please feel free to do so. 
+
+The API management classes are currently directly connected to the tests, but could be further abstracted through a API management keeper classes, implementing a facade strategy pattern. It is arguably implemented through the manamgent class itself towards the http calls, but could certainly be improved upon.
+
 ## Authors
 
 * **Emil Burman** - *Initial work* - [Github](https://github.com/EmilBurman)
