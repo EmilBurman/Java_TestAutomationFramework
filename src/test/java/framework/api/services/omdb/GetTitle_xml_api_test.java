@@ -14,7 +14,10 @@ import static framework.api.misc.OmdbApiTerms.SHORT_PLOT;
 import static framework.api.services.ApiServiceManager.*;
 import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
+@Tag(API)
+@Tag(API_OMDB)
 public class GetTitle_xml_api_test {
+    
     @ParameterizedTest
     @ValueSource(strings = {"Shawshank","Spiderman","Nausicaa of the Valley of the Wind"})
     public void validateMovieExists(String title) throws IOException {
@@ -31,4 +34,5 @@ public class GetTitle_xml_api_test {
         //Make sure the title matches the expected value
         Assertions.assertTrue(request.toLowerCase().contains(title.toLowerCase()),"Unable to find the requested title.");
     }
+    
 }
