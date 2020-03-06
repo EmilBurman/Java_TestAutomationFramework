@@ -142,8 +142,8 @@ jobs:
     - uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: Coverage Failures - Test Results
-        path: build/jacoco
+        name: Coverage Failures - Coverage Reports
+        path: build/reports/jacoco/test/html
     - uses: actions/upload-artifact@v1
       with:
         name: Coverage Reports
