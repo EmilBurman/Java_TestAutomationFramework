@@ -98,12 +98,22 @@ test.finalizedBy jacocoTestReport
 // Set JaCoco code coverage limits
 jacocoTestCoverageVerification {
     violationRules {
+        // General Rule,
+        // - Code Coverage limit to 50%
         rule {
             limit {
-                // code coverage limit to 50%
                 minimum = 0.5
             }
         }
+        // Specific Rule,
+        // - Code Coverage limit to 70%
+        rule {
+            element = 'CLASS'
+            includes = ['framework.api.services.cat.*']
+            limit {
+                minimum = 0.7
+           }
+       }
     }
 }
 
