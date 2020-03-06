@@ -1,6 +1,7 @@
 package framework.adapters;
 
 import framework.utils.JsonUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
@@ -8,9 +9,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Map;
+
+import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
 public class HTTPadapter {
 
@@ -97,7 +102,6 @@ public class HTTPadapter {
 
     }
 
-
     public static HttpResponse sendDeleteCall(String host, String URI, Map<String, String> headers) {
 
         HttpUriRequest request = new HttpDelete(host + URI);
@@ -125,5 +129,27 @@ public class HTTPadapter {
             return false;
         else
             return true;
+    }
+
+    public static String getSpecificJsonValueFromURL(String host, String uri, String jsonKey, @Nullable String apiKey){
+        String responseString = getResponseAsJsonString(host,uri,apiKey);
+        return getSpecificValueFromJSON(responseString,jsonKey);
+    }
+
+    public static String getResponseAsJsonString(String host, String uri, @Nullable String apiKey){
+        String responseString = "";
+
+        if(apiKey==null) {
+            apiKey = "";
+        }
+
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apiKey, null).getEntity();
+        try {
+            responseString = EntityUtils.toString(responseEntity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JsonUtils.prettyPrintJSON(responseString);
+        return responseString;
     }
 }
