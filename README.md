@@ -48,7 +48,6 @@ Currently there are no hard rules within the framework, but there are several pa
 ### Possible improvements
 The current BDD implementation is barebones, it is more of a proof of concept than anything else. If anyone would like to further this implementation please feel free to do so. 
 
-The API management classes are currently directly connected to the tests, but could be further abstracted through a API management keeper classes, implementing a facade strategy pattern. It is arguably implemented through the manamgent class itself towards the http calls, but could certainly be improved upon.
 
 ## Authors
 
