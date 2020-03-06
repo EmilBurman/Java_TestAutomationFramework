@@ -14,6 +14,13 @@ The project does not have any external dependencies, it is simply a collection o
 
 Gradle and java 8 is expected though. Download the repo and check the underlying chapters for more info.
 
+### Currently supported APIs
+Since this is a template project there are currently two supported APIs, chosen due to their ease of use and their inherent difference.
+- https://cat-fact.herokuapp.com/#/
+- http://www.omdbapi.com/
+
+The omdb API uses a key that is contained within the secrets in this repository. Running these tests localy requires a API key that you need to order yourself. Currently there is no way to fetch the secret from within this repository.
+
 ## Running the tests
 
 Tests can run inside of IntelliJ, but can also be run through gradle tasks. See build.gradle for more information regarding the tasks.
