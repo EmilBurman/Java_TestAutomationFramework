@@ -1,6 +1,6 @@
-package framework.api.services.utils;
+package framework.api.misc;
 
-public class CatTags {
+public class CatApiTerms {
     // Possible search types
     public static final String FACTS = "facts";
     public static final String USERS = "users";
