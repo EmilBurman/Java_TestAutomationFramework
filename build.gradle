@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group = rootProject.properties['project.group']
@@ -90,3 +91,48 @@ def testBehaviordrivenWithTag(String tag){
         }
     }
 }
+
+// Ensure Jacoco results are transforms it into a human-readable HTML version
+test.finalizedBy jacocoTestReport
+
+// Set JaCoco code coverage limits
+jacocoTestCoverageVerification {
+    violationRules {
+        // General Rule,
+        // - Code Coverage limit to 50%
+        rule {
+            limit {
+                minimum = 0.5
+            }
+        }
+        // Specific Rule,
+        // - Code Coverage limit to 70%
+        rule {
+            element = 'CLASS'
+            includes = ['framework.api.services.cat.*']
+            limit {
+                minimum = 0.7
+           }
+       }
+    }
+}
+
+// exclude specific files and subdirectories from coverage report
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                exclude: [
+                    'framework/utils/*',
+                    'framework/utils/**',
+                    'framework/api/misc/*',
+                    'framework/api/misc/**'
+                ]
+            )
+        }))
+    }
+}
+
+// Ensure we enforce code coverage.
+// - If any of the defined rules fails, the verification will fail.
+check.dependsOn jacocoTestCoverageVerification
