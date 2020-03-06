@@ -1,43 +1,22 @@
 package framework.api.services.omdb;
 
-import framework.adapters.HTTPadapter;
+import framework.ApiManagementInterface;
 import framework.api.services.UriRequest;
-import framework.utils.JsonUtils;
 import framework.utils.PropertyUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.util.EntityUtils;
+import static framework.adapters.HTTPadapter.getResponseAsJsonString;
+import static framework.adapters.HTTPadapter.getSpecificJsonValueFromURL;
 
-import java.io.IOException;
-
-import static framework.utils.JsonUtils.getSpecificValueFromJSON;
-
-public class OmdbServiceManager extends UriRequest{
+public class OmdbServiceManager extends UriRequest implements ApiManagementInterface {
     static final String host = PropertyUtils.getPropString("omdb.api.host","env.produktion.api.properties");
     static final String apikey = "&apikey="+PropertyUtils.getPropString("omdb.api.key","api.secrets.properties");
 
-    public static String getTitleUsingJson(String uri){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apikey, null).getEntity();
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"Title");
+    public static String getSpecificValueFromJsonResponse(String uri, String jsonKey){
+        return getSpecificJsonValueFromURL(host,uri,jsonKey,apikey);
     }
 
-    public static String getResponseAsJsonString(String uri){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apikey, null).getEntity();
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return responseString;
+    public static String getResponseFromUriAsJsonString(String uri){
+        return getResponseAsJsonString(host,uri,apikey);
     }
-
 
 
     /*

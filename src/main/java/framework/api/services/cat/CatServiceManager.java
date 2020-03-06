@@ -1,16 +1,15 @@
 package framework.api.services.cat;
 
+import framework.ApiManagementInterface;
 import framework.adapters.HTTPadapter;
 import framework.api.services.UriRequest;
 import framework.utils.PropertyUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class CatServiceManager extends UriRequest {
+import static framework.adapters.HTTPadapter.getResponseAsJsonString;
+
+public class CatServiceManager extends UriRequest implements ApiManagementInterface {
 
     static final String host = PropertyUtils.getPropString("cat.api.host","env.produktion.api.properties");
     private boolean searchUsers = false;
@@ -18,15 +17,7 @@ public class CatServiceManager extends UriRequest {
     private String id;
 
     public static String getResponseFromUriAsJsonString(String uri){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri, null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        String responseString = getResponseAsJsonString(host,uri,null);
         return responseString;
     }
 
@@ -105,6 +96,7 @@ public class CatServiceManager extends UriRequest {
 
         public CatRequestBuilder searchByUser(Boolean useUser){
             this.searchUsers = useUser;
+            this.useRandom = false;
             return this;
         }
         public CatServiceManager build(){
