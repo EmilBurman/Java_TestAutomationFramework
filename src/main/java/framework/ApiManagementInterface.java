@@ -4,16 +4,9 @@ import org.apache.http.HttpResponse;
 
 public interface ApiManagementInterface {
 
-    static String getResponseFromUriAsJsonString(String uriToConnectThrough) {
-        return "It seems this method haven't been implemented. Please configure the class properly.";
-    }
+    String getResponseFromUriAsJsonString(String uriToConnectThrough);
 
-    static String getSpecificValueFromJsonResponse(String uriToConnectThrough){
-        return "It seems this method haven't been implemented. Please configure the class properly.";
-    }
+    String getSpecificValueFromJsonResponse(String uriToConnectThrough, String jsonKey);
 
-    static HttpResponse getResponseFromUriAsHttpEntity(String uriToConnectThrough){
-        System.out.println("It seems this method haven't been implemented. Please configure the class properly.");
-        return null;
-    }
+    HttpResponse getResponseFromUriAsHttpResponse(String uriToConnectThrough);
 }

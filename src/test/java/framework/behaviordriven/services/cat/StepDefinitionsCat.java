@@ -15,7 +15,7 @@ public class StepDefinitionsCat {
                 .getRandom()
                 .build()
                 .toString();
-        response = CatServiceManager.getResponseFromUriAsJsonString(uri);
+        response = new CatServiceManager().getResponseFromUriAsJsonString(uri);
         Assertions.assertNotNull(response);
     }
 

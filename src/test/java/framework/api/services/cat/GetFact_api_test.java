@@ -15,7 +15,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.stream.Stream;
 
 import static framework.adapters.HTTPadapter.validateResponseCode;
-import static framework.api.services.cat.CatServiceManager.*;
 import static framework.api.services.utils.CatTags.DOG;
 import static framework.api.services.utils.CatTags.HORSE;
 import static framework.utils.JsonUtils.*;
@@ -101,7 +100,7 @@ public class GetFact_api_test extends AbstractApiTestcase {
 
     public String checkResponseAndConvertToJsonString(String uri){
         // Make the call
-        HttpResponse responseAsHttp = getResponseFromUriAsHttpEntity(uri);
+        HttpResponse responseAsHttp = new CatServiceManager().getResponseFromUriAsHttpResponse(uri);
         // Validate 200 as expected from call
         Assertions.assertTrue(validateResponseCode(HttpStatus.SC_OK,responseAsHttp));
         // Convert to json to manage data validation

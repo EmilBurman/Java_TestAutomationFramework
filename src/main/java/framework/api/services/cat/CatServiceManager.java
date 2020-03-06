@@ -16,14 +16,24 @@ public class CatServiceManager extends UriRequest implements ApiManagementInterf
     private boolean useRandom = true;
     private String id;
 
-    public static String getResponseFromUriAsJsonString(String uri){
+    public CatServiceManager(){
+    }
+
+    @Override
+    public String getResponseFromUriAsJsonString(String uri){
         String responseString = getResponseAsJsonString(host,uri,null);
         return responseString;
     }
 
-    public static HttpResponse getResponseFromUriAsHttpEntity(String uri){
-        HttpResponse responseEntity = HTTPadapter.sendGetCall(host, uri, null);
-        return responseEntity;
+    @Override
+    public String getSpecificValueFromJsonResponse(String uriToConnectThrough, String jsonKey) {
+        return null;
+    }
+
+    @Override
+    public HttpResponse getResponseFromUriAsHttpResponse(String uri){
+        HttpResponse response = HTTPadapter.sendGetCall(host, uri, null);
+        return response;
     }
 
     /*

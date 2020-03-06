@@ -26,7 +26,7 @@ public class GetTitle_api_test extends AbstractApiTestcase {
                 .toString();
         System.out.println(uriRequest);
         // Make request and get the answer as a JSON string
-        String request = OmdbServiceManager.getResponseFromUriAsJsonString(uriRequest);
+        String request = new OmdbServiceManager().getResponseFromUriAsJsonString(uriRequest);
         //Make sure the title matches the expected value
         Assertions.assertTrue(getSpecificValueFromJSON(request,"Title").toLowerCase().contains(title.toLowerCase()),"Unable to find the requested title.");
     }
@@ -40,7 +40,7 @@ public class GetTitle_api_test extends AbstractApiTestcase {
                 .withPlotType(FULL_PLOT)
                 .build()
                 .toString();
-        String request = OmdbServiceManager.getResponseFromUriAsJsonString(uriReq);
+        String request = new OmdbServiceManager().getResponseFromUriAsJsonString(uriReq);
         //Make sure the title matches the expected value
         Assertions.assertTrue(getSpecificValueFromJSON(request,"Title").toLowerCase().contains(seriesTitle.toLowerCase()),"Unable to find the requested title.");
     }
@@ -49,7 +49,7 @@ public class GetTitle_api_test extends AbstractApiTestcase {
     @ValueSource(strings = {"tt0087544"})
     public void validateSpecificItem(String id){
         String uriReq = new OmdbServiceManager.omdbRequestBuilder(ID,id).build().toString();
-        String request = OmdbServiceManager.getResponseFromUriAsJsonString(uriReq);
+        String request = new OmdbServiceManager().getResponseFromUriAsJsonString(uriReq);
         System.out.println(request);
         Assertions.assertTrue(getSpecificValueFromJSON(request,"imdbID").contains(id));
 
