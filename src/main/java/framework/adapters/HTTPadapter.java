@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static framework.utils.JsonUtils.getSpecificValueFromJSON;
+import static framework.utils.XmlUtils.getSpecificValueFromXml;
 
 public class HTTPadapter {
 
@@ -134,6 +135,15 @@ public class HTTPadapter {
     public static String getSpecificJsonValueFromURL(String host, String uri, String jsonKey, @Nullable String apiKey){
         String responseString = getResponseAsJsonString(host,uri,apiKey);
         return getSpecificValueFromJSON(responseString,jsonKey);
+    }
+
+    public static String getSpecificXmlValueFromUrl(String host, String uri, String xmlArea, String xmlkey, @Nullable String apiKey){
+        if(apiKey==null) {
+            apiKey = "";
+        }
+
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apiKey, null).getEntity();
+        return getSpecificValueFromXml(responseEntity, xmlkey, xmlArea);
     }
 
     public static String getResponseAsJsonString(String host, String uri, @Nullable String apiKey){

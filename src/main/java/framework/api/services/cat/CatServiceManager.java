@@ -26,6 +26,11 @@ public class CatServiceManager implements ApiManagementInterface {
     }
 
     @Override
+    public String getSpecificValueFromXmlResponse(String uriToConnectThrough, String xmlKey) {
+        return "METHOD NOT IMPLEMENTED, PLEASE VIEW THE MANAGER FOR THIS API";
+    }
+
+    @Override
     public HttpResponse getResponseFromUriAsHttpResponse(String uri){
         HttpResponse response = HTTPadapter.sendGetCall(host, uri, null);
         return response;

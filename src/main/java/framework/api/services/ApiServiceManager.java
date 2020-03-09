@@ -18,12 +18,17 @@ public class ApiServiceManager{
         return apiHost.getSpecificValueFromJsonResponse(uriToConnectThrough,jsonKey);
     }
 
+    public static String getSpecificValueFromXmlResponse(AvailableApiServices requestedApiHost, String uriToConnectThrough, String xmlKey){
+        ApiManagementInterface apiHost =  apiFactory(requestedApiHost);
+        return apiHost.getSpecificValueFromXmlResponse(uriToConnectThrough,xmlKey);
+    }
+
     public static HttpResponse getResponseFromUriAsHttpResponse(AvailableApiServices requestedApiHost, String uriToConnectThrough) {
         ApiManagementInterface apiHost =  apiFactory(requestedApiHost);
         return apiHost.getResponseFromUriAsHttpResponse(uriToConnectThrough);
     }
 
-    public static ApiManagementInterface apiFactory(AvailableApiServices requestedApi){
+    private static ApiManagementInterface apiFactory(AvailableApiServices requestedApi){
         switch (requestedApi){
             case CAT:
                 return new CatServiceManager();

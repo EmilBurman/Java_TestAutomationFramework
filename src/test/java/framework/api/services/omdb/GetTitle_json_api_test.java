@@ -14,7 +14,7 @@ import static framework.tags.TestcaseTags.*;
 
 @Tag(API)
 @Tag(API_OMDB)
-public class GetTitle_api_test extends AbstractApiTestcase {
+public class GetTitle_json_api_test extends AbstractApiTestcase {
 
     @ParameterizedTest
     @ValueSource(strings = {"Shawshank","Spiderman","Nausicaa of the Valley of the Wind"})

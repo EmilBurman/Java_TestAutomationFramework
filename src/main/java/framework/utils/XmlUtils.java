@@ -1,10 +1,12 @@
 package framework.utils;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
+import org.w3c.dom.*;
 import org.xml.sax.InputSource;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,14 +26,14 @@ public class XmlUtils {
     // Update an already existing XML
     public static String updateXML(String xml, String nodeNamn, String nodeVarde) {
 
-        Document doc = StringToDocument(xml);
+        Document doc = stringToDocument(xml);
         doc = updateNodeValue(doc, nodeNamn, nodeVarde);
-        String newxml = DocumentToString(doc);
+        String newxml = documentToString(doc);
         return newxml;
     }
 
     // Convert a java string to a xml document
-    private static Document StringToDocument(String strXml) {
+    private static Document stringToDocument(String strXml) {
 
         Document doc = null;
         try {
@@ -39,7 +41,7 @@ public class XmlUtils {
             DocumentBuilder builder = factory.newDocumentBuilder();
             StringReader strReader = new StringReader(strXml);
             InputSource is = new InputSource(strReader);
-            doc = (Document) builder.parse(is);
+            doc = builder.parse(is);
         } catch (ParserConfigurationException e1) {
             e1.printStackTrace();
         } catch (org.xml.sax.SAXException e1) {
@@ -52,7 +54,7 @@ public class XmlUtils {
     }
 
     // Convert XML document to a java string
-    private static String DocumentToString(Document doc) {
+    private static String documentToString(Document doc) {
 
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = null;
@@ -97,7 +99,7 @@ public class XmlUtils {
         NodeList list = rootNode.getChildNodes();
         for (int i = 0; i < list.getLength(); i++) {
 
-            Node node = (Node) list.item(i);
+            Node node = list.item(i);
             //Element element = (Element) list.item(i);
             //Node node = list.item(i);
             if (nodeNamnAttUppdatera.equals(node.getNodeName())) {
@@ -108,5 +110,28 @@ public class XmlUtils {
         //Om vi hamnar här då har vi inte hittat ett element att uppdatera, då ska vi lägga till en nytt element
         doc = addNode(doc, nodeNamnAttUppdatera, nodeVardeAttSatta);
         return doc;
+    }
+
+    public static String getSpecificValueFromXml(HttpEntity entity, String xmlKey, String xmlArea){
+        Document xmlDocument = null;
+        String xmlString = null;
+        try {
+            xmlString = EntityUtils.toString(entity);
+            System.out.println(xmlString);
+            xmlDocument = stringToDocument(xmlString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String warning = "Could not find the key within the xml.";
+
+        NodeList list = xmlDocument.getElementsByTagName(xmlArea);
+        System.out.println(list);
+        for (int i = 0; i < list.getLength(); i++) {
+            Node item = list.item(i);
+            if(item.getAttributes().getNamedItem(xmlKey) != null) {
+                return item.getAttributes().getNamedItem(xmlKey).getNodeValue();
+            }
+        }
+        return warning;
     }
 }
