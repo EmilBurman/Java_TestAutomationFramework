@@ -33,12 +33,7 @@ jobs:
         DEFAULT_BUMP: patch
     - name: changelog
       id: change_log
-      uses: timfallmk/github-changelog-generator-action@master
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        since-tag:  git describe --abbrev=0 --tags
+      run: echo "##[set-output name=changelog;]$(git log `git describe --abbrev=0 --tags`...${{ steps.bump_version.outputs.new_tag }} --oneline)"
     - name: createrelease
       id: create_release
       uses: actions/create-release@latest
