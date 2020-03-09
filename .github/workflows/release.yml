@@ -29,6 +29,11 @@ jobs:
         WITH_V: true
         RELEASE_BRANCHES: versionTest
         DEFAULT_BUMP: patch
+      outputs:
+        new_tag:
+          description: The value of the newly created tag.
+        tag:
+          description: The value of the latest tag after running this action.
   createRelease:
     name: Create Release
     runs-on: ubuntu-latest
