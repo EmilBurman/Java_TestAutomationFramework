@@ -3,7 +3,7 @@ name: release flow
 on:
   push:
     branches:
-      - versionTest.*,master
+      - versionTest
 
 jobs:
   bumpdVersion:
@@ -19,7 +19,7 @@ jobs:
     # it will bump whichever DEFAULT_BUMP is set to (which is minor by default).
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@versionTest
       with:
         fetch-depth: '0'
     - name: Bump version and push tag
