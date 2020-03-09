@@ -33,7 +33,7 @@ jobs:
         DEFAULT_BUMP: patch
     - name: changelog
       id: change_log
-      uses: mindsers/changelog-reader-action@v1
+      uses: mindsers/changelog-reader-action@v1.0.1
       with:
         version: ${{ steps.bump_version.outputs.new_tag }}
         path: ./CHANGELOG.md
