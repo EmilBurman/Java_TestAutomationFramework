@@ -33,10 +33,11 @@ jobs:
         DEFAULT_BUMP: patch
     - name: changelog
       id: change_log
-      uses: mindsers/changelog-reader-action@v1.0.1
+      uses: timfallmk/github-changelog-generator-action@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        version: ${{ steps.bump_version.outputs.new_tag }}
-        path: ./CHANGELOG.md
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: createrelease
       id: create_release
       uses: actions/create-release@latest
@@ -47,6 +48,6 @@ jobs:
         release_name: Release ${{ steps.bump_version.outputs.new_tag }}
         body: |
            What's Changed:
-           ${{ steps.change_log.outputs.log_entry }}
+           ${{ steps.change_log.outputs.changelog }}
         draft: false
         prerelease: false
