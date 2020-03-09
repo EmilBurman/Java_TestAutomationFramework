@@ -54,6 +54,9 @@ Currently there are no hard rules within the framework, but there are several pa
 ### Possible improvements
 The current BDD implementation is barebones, it is more of a proof of concept than anything else. If anyone would like to further this implementation please feel free to do so. 
 
+An improvement to the logging within the framewrok is needed, where different levels can be used to trace, info and debugg certain areas.
+
+The XML implementation is mostly a proof of concept due to the difficulty to working with XML.
 
 ## Authors
 
