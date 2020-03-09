@@ -23,6 +23,9 @@ jobs:
       uses: actions/checkout@master
       with:
         fetch-depth: 0
+    - name: changelog
+      id: change_log
+      run: echo "##[set-output name=changelog;]$(git log `git describe --abbrev=0 --tags`... --oneline)"
     - name: bumpversion
       id: bump_version
       uses: anothrNick/github-tag-action@1.17.2
@@ -31,9 +34,6 @@ jobs:
         WITH_V: true
         RELEASE_BRANCHES: versionTest
         DEFAULT_BUMP: patch
-    - name: changelog
-      id: change_log
-      run: echo "##[set-output name=changelog;]$(git log `git describe --abbrev=0 --tags`...${{ steps.bump_version.outputs.new_tag }} --oneline)"
     - name: createrelease
       id: create_release
       uses: actions/create-release@latest
