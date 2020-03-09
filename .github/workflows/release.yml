@@ -34,10 +34,11 @@ jobs:
     - name: changelog
       id: change_log
       uses: timfallmk/github-changelog-generator-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        since-tag:  git describe --abbrev=0 --tags
     - name: createrelease
       id: create_release
       uses: actions/create-release@latest
