@@ -23,9 +23,10 @@ jobs:
       uses: actions/checkout@master
       with:
         fetch-depth: 0
+    - name: changelogs
+      run: echo "##[set-output name=previoustag;]$(git describe --abbrev=0 --tags)"
     - name: changelog
       id: change_log
-      run: echo "##[set-output name=previoustag;]$(git describe --abbrev=0 --tags)"
       run: echo "##[set-output name=changelog;]$(git log `git describe --abbrev=0 --tags`... --oneline)"
     - name: bumpversion
       id: bump_version
