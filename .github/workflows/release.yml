@@ -28,4 +28,24 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         RELEASE_BRANCHES: versionTest
-        DEFAULT_BUMP: patch 
+        DEFAULT_BUMP: patch
+  createRelease:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ new_tag }}
+          release_name: Release ${{ new_tag }}
+          body: |
+            Auto Commit
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
