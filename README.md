@@ -34,6 +34,12 @@ It it also possible to use predefined tasks specified for the types of testing t
 
 To run a complete test suite simply type gradle test into your terminal.
 
+### Secrets and API keys
+
+While all tests can be run, some are dependent on API keys that are only available from github (currently). In order to run the OMDB tests without them failing a API key needs to be added to property file aptly named "api.secrets.properties". The specific key name is "omdb.api.key" in order to avoid any confussion.
+
+Currently there is no way to fetch the key from within github and place it locally, instead the key is currently known by only one person, Emil Burman. If you wish to run the tests yourself it is recommended that you fetch your own key to the omdb API.
+
 ## Built With
 
 * See gradle.properties or build.gradle for an overview of the different libraries used for the framework.
