@@ -45,6 +45,7 @@ jobs:
         tag_name: ${{ steps.bump_version.outputs.new_tag }}
         release_name: Release ${{ steps.bump_version.outputs.new_tag }}
         body: |
+           What's Changed:
            ${{ steps.change_log.outputs.changelog }}
         draft: false
         prerelease: false
