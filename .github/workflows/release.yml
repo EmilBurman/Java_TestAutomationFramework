@@ -29,11 +29,6 @@ jobs:
         WITH_V: true
         RELEASE_BRANCHES: versionTest
         DEFAULT_BUMP: patch
-      outputs:
-        new_tag:
-          description: The value of the newly created tag.
-        tag:
-          description: The value of the latest tag after running this action.
   createRelease:
     name: Create Release
     runs-on: ubuntu-latest
@@ -46,8 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ new_tag }}
-          release_name: Release ${{ new_tag }}
+          tag_name: steps.bumpdVersion.new_tag
+          release_name: Release steps.bumpdVersion.new_tag
           body: |
             Auto Commit
             - First Change
