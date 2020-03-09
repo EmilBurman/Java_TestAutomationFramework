@@ -23,21 +23,22 @@ jobs:
       uses: actions/checkout@master
       with:
         fetch-depth: '0'
-    - name: bumpVersion
+    - name: bumpversion
+      id: bump_version
       uses: anothrNick/github-tag-action@1.17.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         RELEASE_BRANCHES: versionTest
         DEFAULT_BUMP: patch
-    - name: createRelease
+    - name: createrelease
       id: create_release
       uses: actions/create-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: $env.new_tag
-        release_name: Release $env.new_tag
+        tag_name: ${{ steps.bump_version.outputs.new_tag }}
+        release_name: Release ${{ steps.bump_version.outputs.new_tag }}
         body: |
           Auto Commit PE
           - First Change
