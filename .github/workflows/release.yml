@@ -31,6 +31,11 @@ jobs:
         WITH_V: true
         RELEASE_BRANCHES: versionTest
         DEFAULT_BUMP: patch
+    - name: changelog
+      id: change_log
+      uses: scottbrenner/generate-changelog-action@master
+      env:
+        REPO: ${{ github.repository }}
     - name: createrelease
       id: create_release
       uses: actions/create-release@latest
@@ -40,8 +45,6 @@ jobs:
         tag_name: ${{ steps.bump_version.outputs.new_tag }}
         release_name: Release ${{ steps.bump_version.outputs.new_tag }}
         body: |
-          Auto Commit PE
-          - First Change
-          - Second Change
+           ${{ steps.change_log.outputs.changelog }}
         draft: false
         prerelease: false
