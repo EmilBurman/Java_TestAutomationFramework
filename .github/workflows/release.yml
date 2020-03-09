@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
       with:
-        fetch-depth: '0'
+        fetch-depth: 0
     - name: bumpversion
       id: bump_version
       uses: anothrNick/github-tag-action@1.17.2
