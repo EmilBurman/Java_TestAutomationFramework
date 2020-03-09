@@ -1,9 +1,9 @@
-name: releasse flow
+name: release flow
 
 on:
   push:
     branches:
-      - master,versionTest
+      - versionTest.*,master
 
 jobs:
   bumpdVersion:
