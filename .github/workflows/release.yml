@@ -1,0 +1,29 @@
+name: releasse flow
+
+on:
+  push:
+    branches:
+      - master,versionTest
+
+jobs:
+  bumpdVersion:
+    # Bumping
+    # Manual Bumping: Any commit message that includes
+    #  - #major,
+    #  - #minor
+    #  - #patch
+    # will trigger the respective version bump.
+    # If two or more are present, the highest-ranking one will take precedence.
+    # Automatic Bumping:
+    # - If no #major, #minor or #patch tag is contained in the commit messages,
+    # it will bump whichever DEFAULT_BUMP is set to (which is minor by default).
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: '0'
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.17.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
