@@ -23,8 +23,9 @@ jobs:
       uses: actions/checkout@master
       with:
         fetch-depth: 0
+    - name: getTags
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-    - name: changelogs
+    - name: changeLogs
       run: echo "##[set-output name=previoustag;]$(git describe --abbrev=0 --tags)"
     - name: changelog
       id: change_log
