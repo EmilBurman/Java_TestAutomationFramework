@@ -39,7 +39,7 @@ jobs:
         tag_name: $new_tag
         release_name: Release $new_tag
         body: |
-          Auto Commit
+          Auto Commit PE
           - First Change
           - Second Change
         draft: false
