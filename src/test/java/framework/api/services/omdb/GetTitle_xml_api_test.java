@@ -1,8 +1,7 @@
 package framework.api.services.omdb;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -13,7 +12,6 @@ import static framework.api.misc.AvailableApiServices.OMDB;
 import static framework.api.misc.OmdbApiTerms.*;
 import static framework.api.misc.OmdbApiTerms.SHORT_PLOT;
 import static framework.api.services.ApiServiceManager.*;
-import static framework.utils.JsonUtils.getSpecificValueFromJSON;
 
 @Tag(API)
 @Tag(API_OMDB)
