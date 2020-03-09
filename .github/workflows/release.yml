@@ -36,8 +36,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ steps.bumpVersion.outputs.new_tag }}
-        release_name: Release ${{ steps.bumpVersion.outputs.new_tag }}
+        tag_name: ${{ outputs.new_tag }}
+        release_name: Release ${{ outputs.new_tag }}
         body: |
           Auto Commit
           - First Change
