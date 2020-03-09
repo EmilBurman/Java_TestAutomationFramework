@@ -33,7 +33,7 @@ jobs:
         DEFAULT_BUMP: patch
     - name: changelog
       id: change_log
-      uses: timfallmk/github-changelog-generator-action@latest
+      uses: timfallmk/github-changelog-generator-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
