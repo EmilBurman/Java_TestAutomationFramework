@@ -25,6 +25,7 @@ jobs:
         fetch-depth: 0
     - name: changelog
       id: change_log
+      run: echo "##[set-output name=previoustag;]$(git describe --abbrev=0 --tags)"
       run: echo "##[set-output name=changelog;]$(git log `git describe --abbrev=0 --tags`... --oneline)"
     - name: bumpversion
       id: bump_version
