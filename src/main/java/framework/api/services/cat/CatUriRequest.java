@@ -27,17 +27,17 @@ public class CatUriRequest extends UriRequest{
         if(searchUsers)
             endpoint ="/users";
 
-        if(!(id ==null))
-            return endpoint+"/"+id;
-        else {
-            if (!searchUsers && useRandom)
+        if(!(id ==null)) {
+            return endpoint + "/" + id;
+        } else {
+            if (!searchUsers && useRandom) {
                 endpoint += "/random";
-
-            if (uriMap.isEmpty())
+            }
+            if (uriMap.isEmpty()) {
                 endpoint += "/";
-            else
+            } else {
                 endpoint += "?";
-
+            }
             return endpoint;
         }
     }

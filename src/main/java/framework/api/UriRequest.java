@@ -23,9 +23,9 @@ public class UriRequest {
 
     @Override
     public String toString(){
-        String uri = uriMap.entrySet().stream().map(Object::toString).collect(Collectors.joining("&"));
-        System.out.println(uri);
-        return "/?"+ uri;
+        String uri =("/?"+ uriMap.entrySet().stream().map(Object::toString).collect(Collectors.joining("&")));
+        System.out.println("Uri used for the request: " + uri);
+        return uri;
     }
 
     public String convertStringToUriSafeString(String initalString){
