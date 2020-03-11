@@ -1,14 +1,16 @@
 package framework.utils;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.util.logging.Logger;
 
 public class JsonUtils {
 
@@ -114,12 +116,21 @@ public class JsonUtils {
 
     // It's currently unable to handle multiple matches to same value
     public static String getSpecificValueFromJSON(String jsonString, String key){
-        JSONObject jsonObject = convertJSONStringToJSONObject(jsonString);
-        return String.valueOf(jsonObject.get(key));
+        return getSpecificValueFromJSON(convertJSONStringToJSONObject(jsonString), key);
     }
 
     public static String getSpecificValueFromJSON(JSONObject jsonObject, String key){
         return String.valueOf(jsonObject.get(key));
+    }
+
+    public static String convertHttpResponseToJsonString(HttpResponse response){
+        String responseString = "";
+        try {
+            responseString = EntityUtils.toString(response.getEntity());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseString;
     }
 
 }

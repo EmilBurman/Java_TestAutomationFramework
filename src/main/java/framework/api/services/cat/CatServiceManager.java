@@ -1,88 +1,38 @@
 package framework.api.services.cat;
 
+import framework.api.ApiManagementInterface;
 import framework.adapters.HTTPadapter;
-import framework.utils.JsonUtils;
 import framework.utils.PropertyUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
+import static framework.adapters.HTTPadapter.getResponseAsJsonString;
 
-import static framework.utils.JsonUtils.getSpecificValueFromJSON;
-
-public class CatServiceManager {
+public class CatServiceManager implements ApiManagementInterface {
 
     static final String host = PropertyUtils.getPropString("cat.api.host","env.produktion.api.properties");
-    static final String factBaseURI = PropertyUtils.getPropString("cat.api.uri.fact","env.produktion.api.properties");
 
-    public static String getRandomCatFact(){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random", null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"text");
+    public CatServiceManager(){
     }
 
-    public static String getRandomCatFactObject(){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random", null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JsonUtils.prettyPrintJSON(responseString);
+    @Override
+    public String getResponseFromUriAsJsonString(String uri){
+        String responseString = getResponseAsJsonString(host,uri,null);
         return responseString;
     }
 
-    public static String getOtherAnimalFact(String animal){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/random?animal_type="+animal, null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"type");
+    @Override
+    public String getSpecificValueFromJsonResponse(String uriToConnectThrough, String jsonKey) {
+        return null;
     }
 
-    public static String getSpecificFactText(String factID){
-        String responseString = getSpecificFactObject(factID);
-        JsonUtils.prettyPrintJSON(responseString);
-        return getSpecificValueFromJSON(responseString,"text");
+    @Override
+    public String getSpecificValueFromXmlResponse(String uriToConnectThrough, String xmlKey) {
+        return "METHOD NOT IMPLEMENTED, PLEASE VIEW THE MANAGER FOR THIS API";
     }
 
-    public static String getSpecificFactObject(String factID){
-        String responseString = "";
-        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, factBaseURI+"/"+factID, null).getEntity();
-
-        try {
-            responseString = EntityUtils.toString(responseEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JsonUtils.prettyPrintJSON(responseString);
-        return responseString;
-    }
-
-    public static boolean validateResponseCode(int expectedResponseCode, String endpoint){
-        HttpResponse response = HTTPadapter.sendGetCall(host, factBaseURI+endpoint, null);
-        return HTTPadapter.validateResponseCode(expectedResponseCode,response);
-    }
-    public static boolean validateResponseCodeFromObject(int expectedResponseCode, HttpResponse expectedObject){
-        return HTTPadapter.validateResponseCode(expectedResponseCode,expectedObject);
+    @Override
+    public HttpResponse getResponseFromUriAsHttpResponse(String uri){
+        HttpResponse response = HTTPadapter.sendGetCall(host, uri, null);
+        return response;
     }
 }

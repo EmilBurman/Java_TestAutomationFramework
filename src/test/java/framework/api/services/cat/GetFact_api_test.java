@@ -1,7 +1,7 @@
 package framework.api.services.cat;
 
 import framework.api.AbstractApiTestcase;
-import framework.utils.JsonUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -14,35 +14,66 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
-import static framework.api.services.cat.CatServiceManager.getOtherAnimalFact;
-import static framework.utils.JsonUtils.getJSONResourceAsJSONObject;
-import static framework.utils.Tags.API;
-import static framework.utils.Tags.API_CAT;
+import static framework.adapters.HTTPadapter.validateResponseCode;
+import static framework.api.services.ApiServiceManager.getResponseFromUriAsHttpResponse;
+import static framework.api.misc.AvailableApiServices.CAT;
+import static framework.api.misc.CatApiTerms.DOG;
+import static framework.api.misc.CatApiTerms.HORSE;
+import static framework.utils.JsonUtils.*;
+import static framework.tags.TestcaseTags.API;
+import static framework.tags.TestcaseTags.API_CAT;
 
 @Tag(API)
 @Tag(API_CAT)
 public class GetFact_api_test extends AbstractApiTestcase {
+    String uriRequest;
+    @ParameterizedTest
+    @ValueSource(strings = {HORSE,DOG})
+    public void checkIfAnimalTypeExists(String animalType){
+        uriRequest = new CatUriRequest.CatRequestBuilder()
+                .getRandom()
+                .usingAnimalType(animalType)
+                .build()
+                .toString();
+        String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
+        // Make sure JSON contains expected value
+        Assertions.assertTrue(getSpecificValueFromJSON(responseAsJson,"type").contains(animalType.toLowerCase()), "Unable to get a fact, please investigate.");
+    }
 
-    @Test
-    public void valdiate200Response(){
-        Assertions.assertTrue(CatServiceManager.validateResponseCode(HttpStatus.SC_OK, "/random"), "Endpoint responded with a incorrect status code.");
+    @ParameterizedTest
+    @ValueSource(ints = {5,10})
+    public void getDifferentAmountOfAnimal(Integer amount){
+        uriRequest = new CatUriRequest.CatRequestBuilder()
+                .getRandom()
+                .withAmount(amount)
+                .build()
+                .toString();
+        String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
+        // Make sure JSON contains expected value
+        Assertions.assertTrue(convertJSONStringToJSONArray(responseAsJson).size()==amount, "Unable to get several facts, please investigate.");
     }
 
     @Test
     public void validateRandomFactResponseTextIsNotEmpty(){
-        Assertions.assertTrue(CatServiceManager.getRandomCatFact()!= null, "Unable to get a fact, please investigate.");
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"horse","dog"})
-    public void validateOtherAnimalFactresponseTextIsNotEmpty(String animal){
-        Assertions.assertTrue(getOtherAnimalFact(animal).contains(animal.toLowerCase()), "Unable to get a fact, please investigate.");
+        uriRequest = new CatUriRequest.CatRequestBuilder()
+                .getRandom()
+                .build()
+                .toString();
+        String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
+        // Make sure JSON contains expected value
+        Assertions.assertTrue(getSpecificValueFromJSON(responseAsJson,"text")!=null,"Missing response text");
     }
 
     @ParameterizedTest
     @MethodSource("specificCatFacts")
-    public void validateSpecificFact(String factID, String expectedFact){
-        Assertions.assertTrue(CatServiceManager.getSpecificFactText(factID).contains(expectedFact), "Fetched fact differs from expected result.");
+    public void validateSpecificFactThroughId(String factID, String expectedFact){
+        uriRequest = new CatUriRequest.CatRequestBuilder()
+                .usingID(factID)
+                .build()
+                .toString();
+        String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
+        // Make sure JSON contains expected value
+        Assertions.assertTrue(getSpecificValueFromJSON(responseAsJson,"text").contains(expectedFact), "Fetched fact differs from expected result.");
     }
 
     private static Stream<Arguments> specificCatFacts() {
@@ -55,13 +86,27 @@ public class GetFact_api_test extends AbstractApiTestcase {
     @ParameterizedTest
     @MethodSource("specificCatObjects")
     public void validateEntireObject(String factID, JSONObject expectedObject){
-        String apiJsonObject = CatServiceManager.getSpecificFactObject(factID);
-        Assertions.assertTrue(JsonUtils.convertJSONStringToJSONObject(apiJsonObject).equals(expectedObject));
+        uriRequest = new CatUriRequest.CatRequestBuilder()
+                .usingID(factID)
+                .build()
+                .toString();
+        String responseAsJson = checkResponseAndConvertToJsonString(uriRequest);
+        Assertions.assertTrue(convertJSONStringToJSONObject(responseAsJson).equals(expectedObject), "Fetched fact differs from expected result.");
     }
 
     private static Stream<Arguments> specificCatObjects() {
         return Stream.of(
                 Arguments.of("591f98883b90f7150a19c28c", getJSONResourceAsJSONObject("framework/api.services.cat/catfact.json"))
         );
+    }
+
+    public String checkResponseAndConvertToJsonString(String uri){
+        // Make the call
+        HttpResponse responseAsHttp = getResponseFromUriAsHttpResponse(CAT, uri);
+        // Validate 200 as expected from call
+        Assertions.assertTrue(validateResponseCode(HttpStatus.SC_OK,responseAsHttp));
+        // Convert to json to manage data validation
+        String responseAsJson = convertHttpResponseToJsonString(responseAsHttp);
+        return responseAsJson;
     }
 }

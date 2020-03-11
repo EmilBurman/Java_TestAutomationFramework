@@ -1,6 +1,7 @@
 package framework.adapters;
 
 import framework.utils.JsonUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
@@ -8,15 +9,21 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Map;
+
+import static framework.utils.JsonUtils.getSpecificValueFromJSON;
+import static framework.utils.XmlUtils.getSpecificValueFromXml;
 
 public class HTTPadapter {
 
     public static HttpResponse sendGetCall(String host, String URI, Map<String, String> headers) {
 
         HttpUriRequest request = new HttpGet(host + URI);
+        System.out.println(request);
 
         if (headers!=null){
             headers.forEach((headerKey, headerValue) -> {
@@ -45,22 +52,22 @@ public class HTTPadapter {
                 = HttpClients.custom().setConnectionManager(poolingConnManager)
                 .build();
 
-        HttpPost postAnrop = new HttpPost(host + URI);
+        HttpPost request = new HttpPost(host + URI);
 
         JsonUtils.prettyPrintJSON(stringBody);
 
         if (headers!=null){
             headers.forEach((headerKey, headerValue) -> {
-                postAnrop.addHeader(headerKey, headerValue);
+                request.addHeader(headerKey, headerValue);
             });
         }
 
         HttpResponse httpResponse;
         try {
             StringEntity se = new StringEntity(stringBody);
-            postAnrop.setEntity(se);
+            request.setEntity(se);
 
-            httpResponse = client.execute(postAnrop);
+            httpResponse = client.execute(request);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
@@ -70,32 +77,31 @@ public class HTTPadapter {
     }
 
     public static HttpResponse sendPutCall(String host, String URI, String stringBody, Map<String, String> headers) {
-        HttpPut putAnrop = new HttpPut(host + URI);
+        HttpPut request = new HttpPut(host + URI);
 
         if (headers!=null) {
             headers.forEach((headerKey, headerValue) -> {
-                putAnrop.addHeader(headerKey, headerValue);
+                request.addHeader(headerKey, headerValue);
             });
         }
         else{
-            putAnrop.addHeader("content-type", "application/json");
+            request.addHeader("content-type", "application/json");
         }
         HttpResponse httpResponse;
         try {
 
             StringEntity se = new StringEntity(stringBody);
-            putAnrop.setEntity(se);
+            request.setEntity(se);
 
             httpResponse = HttpClientBuilder.create()
                     .build()
-                    .execute(putAnrop);
+                    .execute(request);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
         return httpResponse;
 
     }
-
 
     public static HttpResponse sendDeleteCall(String host, String URI, Map<String, String> headers) {
 
@@ -124,5 +130,36 @@ public class HTTPadapter {
             return false;
         else
             return true;
+    }
+
+    public static String getSpecificJsonValueFromURL(String host, String uri, String jsonKey, @Nullable String apiKey){
+        String responseString = getResponseAsJsonString(host,uri,apiKey);
+        return getSpecificValueFromJSON(responseString,jsonKey);
+    }
+
+    public static String getSpecificXmlValueFromUrl(String host, String uri, String xmlArea, String xmlkey, @Nullable String apiKey){
+        if(apiKey==null) {
+            apiKey = "";
+        }
+
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apiKey, null).getEntity();
+        return getSpecificValueFromXml(responseEntity, xmlkey, xmlArea);
+    }
+
+    public static String getResponseAsJsonString(String host, String uri, @Nullable String apiKey){
+        String responseString = "";
+
+        if(apiKey==null) {
+            apiKey = "";
+        }
+
+        HttpEntity responseEntity = HTTPadapter.sendGetCall(host, uri+apiKey, null).getEntity();
+        try {
+            responseString = EntityUtils.toString(responseEntity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JsonUtils.prettyPrintJSON(responseString);
+        return responseString;
     }
 }
